@@ -8,11 +8,13 @@ create schema "public";
 
 CREATE TABLE "public"."users" (
 	"userId" serial NOT NULL,
-	"yearsExperience" integer NOT NULL,
-	"sportTrainingFor" TEXT NOT NULL,
-	"injuries" TEXT NOT NULL,
-	"daysPerWeek" integer NOT NULL,
-	"trainingDuration" TEXT NOT NULL,
+	"name" TEXT NOT NULL,
+	"yearsExperience" integer,
+	"sportTrainingFor" TEXT,
+	"injuries" TEXT,
+	"daysPerWeek" integer,
+	"trainingDuration" TEXT,
+	"prId" integer,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -21,6 +23,7 @@ CREATE TABLE "public"."users" (
 
 
 CREATE TABLE "public"."prs" (
+	"prId" serial NOT NULL,
 	"weight" integer NOT NULL,
 	"reps" integer NOT NULL,
 	"userId" integer NOT NULL,
@@ -56,6 +59,7 @@ CREATE TABLE "public"."exerciseList" (
 
 
 
+ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("prId") REFERENCES "prs"("prId");
 
 ALTER TABLE "prs" ADD CONSTRAINT "prs_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 ALTER TABLE "prs" ADD CONSTRAINT "prs_fk1" FOREIGN KEY ("exerciseId") REFERENCES "exerciseList"("exerciseId");
