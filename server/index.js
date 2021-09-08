@@ -30,7 +30,8 @@ app.get('/api/pr/:userId', (req, res, next) => {
   const sql = `
     select "e"."exercise",
            "p"."reps",
-           "p"."weight"
+           "p"."weight",
+           "p"."prId"
      from  "prs" as "p"
      join "exerciseList" as "e" using ("exerciseId")
      where "userId" = $1
