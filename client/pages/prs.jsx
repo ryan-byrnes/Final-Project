@@ -71,6 +71,7 @@ class AddPrModal extends React.Component {
           <div className="modal-content">
             <h1>Add PR's</h1>
             <Search />
+            <SelectExerciseButton userInput="Hello" />
             <button onClick={this.handleClose}>Close</button>
           </div>
         </div>
@@ -135,13 +136,6 @@ class Search extends React.Component {
 
   render() {
     let listSuggestions;
-    // const suggestion = this.filteredExercises.map((suggestion, index) => {
-    //   return (
-    //     <li key={suggestion} onClick={this.onClick}>
-    //       {suggestion.exercise}
-    //     </li>
-    //   );
-    // });
     if (this.state.showSuggestions && this.state.userInput) {
       if (this.state.filteredExercises.length) {
         listSuggestions = (
@@ -149,7 +143,7 @@ class Search extends React.Component {
             <ul className="suggestions">
               {this.state.filteredExercises.map((suggestion, index) => {
                 return (
-                  <li key={suggestion} onClick={this.onClick}>
+                  <li key={suggestion.exercise} onClick={this.onClick}>
                     {suggestion.exercise}
                   </li>
                 );
@@ -180,3 +174,25 @@ class Search extends React.Component {
 Search.propTypes = {
   suggestions: PropTypes.instanceOf(Array)
 };
+
+// class SelectExerciseButton extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       userInput: ''
+//     };
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+
+//   handleSubmit() {
+//     this.setState({
+//       userInput: this.props.userInput
+//     });
+//   }
+
+//   render() {
+//     return (
+//       <button type="submit">Add</button>
+//     );
+//   }
+// }
