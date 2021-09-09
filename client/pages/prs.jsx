@@ -10,7 +10,7 @@ export default class PrPage extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/api/pr/:${this.state.userId}`)
+    fetch(`/api/pr/${this.state.userId}`)
       .then(res => res.json())
       .then(prs => this.setState({ prs }));
   }
@@ -27,7 +27,52 @@ export default class PrPage extends React.Component {
           ))
         }
       </div>
+      <div>
+        <AddPrModal />
+      </div>
     </div>
+    );
+  }
+}
+
+class AddPrModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  handleOpen() {
+    this.setState({ isOpen: true });
+  }
+
+  handleClose() {
+    this.setState({
+      isOpen: false
+    });
+  }
+
+  render() {
+    if (!this.state.isOpen) {
+      return (
+        <div>
+          <button onClick={this.handleOpen}>+ Add PR</button>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <a href="">+ Add PR</a>
+        <div className="modal">
+          <div className="modal-content">
+            <h1>Hello</h1>
+            <button onClick={this.handleClose}>Close</button>
+          </div>
+        </div>
+      </div>
     );
   }
 }
@@ -35,10 +80,10 @@ export default class PrPage extends React.Component {
 function Pr(props) {
   const { exercise, reps, weight } = props.pr;
   return (
-    <span>
+    <div className="row">
       <h3>{ exercise }</h3>
       <h5>{ reps } RM</h5>
-      <h5>{ weight }</h5>
-    </span>
+      <h5>{weight}</h5>
+    </div>
   );
 }
