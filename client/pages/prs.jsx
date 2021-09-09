@@ -68,7 +68,7 @@ class AddPrModal extends React.Component {
         <a href="">+ Add PR</a>
         <div className="modal">
           <div className="modal-content">
-            <h1>Hello</h1>
+            <h1>Add PR's</h1>
             <button onClick={this.handleClose}>Close</button>
           </div>
         </div>
@@ -86,4 +86,47 @@ function Pr(props) {
       <h5>{weight}</h5>
     </div>
   );
+}
+
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      exercises: [],
+      filteredExercises: [],
+      activeSuggestions: 0,
+      showSuggestions: false,
+      userInput: ''
+    };
+    this.onType = this.onType.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/exercise-list')
+      .then(res => res.json())
+      .then(exercises => this.setState({ exercises }));
+  }
+
+  onType(event) {
+    const userInput = event.currentTarget.value;
+    const filteredExercises = this.exercises.filter(
+      exercise => exercise.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    );
+    this.setState({
+      activeSuggestions: 0,
+      filteredExercises,
+      showSuggestions: true,
+      userInput: event.target.value
+    });
+  }
+
+  onClick(event) {
+    this.setState({
+      activeSuggestions: 0,
+      filteredExercises: [],
+      showSuggestions: false,
+      userInput: event.currentTarget.innerText
+    });
+  }
 }
