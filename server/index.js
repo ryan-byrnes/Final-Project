@@ -22,6 +22,16 @@ app.use(staticMiddleware);
 
 app.use(errorMiddleware);
 
+app.get('/api/exercise-list', (req, res, next) => {
+  const sql = `
+  select "exercise"
+  from "exerciseList"
+  `;
+
+  db.query(sql)
+    .then(result => res.status(200).json(result.rows));
+});
+
 app.get('/api/pr/:userId', (req, res, next) => {
   const id = parseInt(req.params.userId, 10);
   if (!Number.isInteger(id) || id <= 0) {

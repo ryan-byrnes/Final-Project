@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class PrPage extends React.Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class AddPrModal extends React.Component {
         <div className="modal">
           <div className="modal-content">
             <h1>Add PR's</h1>
+            <Search />
             <button onClick={this.handleClose}>Close</button>
           </div>
         </div>
@@ -89,6 +91,7 @@ function Pr(props) {
 }
 
 class Search extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -110,8 +113,8 @@ class Search extends React.Component {
 
   onType(event) {
     const userInput = event.currentTarget.value;
-    const filteredExercises = this.exercises.filter(
-      exercise => exercise.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    const filteredExercises = this.state.exercises.filter(
+      exercise => exercise.exercise.toLowerCase().indexOf(userInput.toLowerCase()) > -1
     );
     this.setState({
       activeSuggestions: 0,
@@ -129,4 +132,51 @@ class Search extends React.Component {
       userInput: event.currentTarget.innerText
     });
   }
+
+  render() {
+    let listSuggestions;
+    // const suggestion = this.filteredExercises.map((suggestion, index) => {
+    //   return (
+    //     <li key={suggestion} onClick={this.onClick}>
+    //       {suggestion.exercise}
+    //     </li>
+    //   );
+    // });
+    if (this.state.showSuggestions && this.state.userInput) {
+      if (this.state.filteredExercises.length) {
+        listSuggestions = (
+          <div>
+            <ul className="suggestions">
+              {this.state.filteredExercises.map((suggestion, index) => {
+                return (
+                  <li key={suggestion} onClick={this.onClick}>
+                    {suggestion.exercise}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      } else {
+        listSuggestions = (
+          <div>
+            <div className="no-suggestions">
+              <p>No suggestions available</p>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    return (
+      <>
+        <input type="text" onChange={this.onType} value={this.state.userInput} />
+        {listSuggestions}
+      </>
+    );
+  }
 }
+
+Search.propTypes = {
+  suggestions: PropTypes.instanceOf(Array)
+};
