@@ -41,9 +41,24 @@ class AddPrModal extends React.Component {
     super(props);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.onType = this.onType.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.addExercise = this.addExercise.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      exercises: [],
+      filteredExercises: [],
+      activeSuggestions: 0,
+      showSuggestions: false,
+      userInput: '',
+      addExercise: []
     };
+  }
+
+  componentDidMount() {
+    fetch('/api/exercise-list')
+      .then(res => res.json())
+      .then(exercises => this.setState({ exercises }));
   }
 
   handleOpen() {
@@ -56,60 +71,12 @@ class AddPrModal extends React.Component {
     });
   }
 
-  render() {
-    if (!this.state.isOpen) {
-      return (
-        <div>
-          <button onClick={this.handleOpen}>+ Add PR</button>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <a href="">+ Add PR</a>
-        <div className="modal">
-          <div className="modal-content">
-            <h1>Add PR's</h1>
-            <Search />
-            <SelectExerciseButton userInput="Hello" />
-            <button onClick={this.handleClose}>Close</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-function Pr(props) {
-  const { exercise, reps, weight } = props.pr;
-  return (
-    <div className="row">
-      <h3>{ exercise }</h3>
-      <h5>{ reps } RM</h5>
-      <h5>{weight}</h5>
-    </div>
-  );
-}
-
-class Search extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      exercises: [],
-      filteredExercises: [],
-      activeSuggestions: 0,
-      showSuggestions: false,
+  addExercise() {
+    event.preventDefault();
+    this.setState({
+      addExercise: this.state.userInput,
       userInput: ''
-    };
-    this.onType = this.onType.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('/api/exercise-list')
-      .then(res => res.json())
-      .then(exercises => this.setState({ exercises }));
+    });
   }
 
   onType(event) {
@@ -135,15 +102,73 @@ class Search extends React.Component {
   }
 
   render() {
+    if (!this.state.isOpen) {
+      return (
+        <div>
+          <button onClick={this.handleOpen}>+ Add PR</button>
+        </div>
+      );
+    }
+    if (this.state.addExercise.length > 0) {
+      return (
+        <div>
+          <a href="">+ Add PR</a>
+          <div className="modal">
+            <div className="modal-content">
+              <h1>Add PR's</h1>
+              <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
+              <div>
+                <h1>{this.state.addExercise}</h1>
+              </div>
+              <div>
+                <button onClick={this.handleClose}>Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <a href="">+ Add PR</a>
+        <div className="modal">
+          <div className="modal-content">
+            <h1>Add PR's</h1>
+            <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
+            <div>
+              <button onClick={this.handleClose}>Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+function Pr(props) {
+  const { exercise, reps, weight } = props.pr;
+  return (
+    <div className="row">
+      <h3>{ exercise }</h3>
+      <h5>{ reps } RM</h5>
+      <h5>{weight}</h5>
+    </div>
+  );
+}
+
+class Search extends React.Component {
+
+  render() {
+    const { showSuggestions, userInput, filteredExercises } = this.props.state;
     let listSuggestions;
-    if (this.state.showSuggestions && this.state.userInput) {
-      if (this.state.filteredExercises.length) {
+    if (showSuggestions && userInput) {
+      if (filteredExercises.length) {
         listSuggestions = (
           <div>
             <ul className="suggestions">
-              {this.state.filteredExercises.map((suggestion, index) => {
+              {filteredExercises.map((suggestion, index) => {
                 return (
-                  <li key={suggestion.exercise} onClick={this.onClick}>
+                  <li key={suggestion.exercise} onClick={this.props.click}>
                     {suggestion.exercise}
                   </li>
                 );
@@ -163,10 +188,11 @@ class Search extends React.Component {
     }
 
     return (
-      <>
-        <input type="text" onChange={this.onType} value={this.state.userInput} />
+      <form onSubmit={this.props.addExercise}>
+        <input type="text" onChange={this.props.onType} value={userInput} />
+        <button className="height" type="submit">Add</button>
         {listSuggestions}
-      </>
+      </form>
     );
   }
 }
@@ -174,25 +200,3 @@ class Search extends React.Component {
 Search.propTypes = {
   suggestions: PropTypes.instanceOf(Array)
 };
-
-// class SelectExerciseButton extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       userInput: ''
-//     };
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleSubmit() {
-//     this.setState({
-//       userInput: this.props.userInput
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <button type="submit">Add</button>
-//     );
-//   }
-// }
