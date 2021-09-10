@@ -29,7 +29,7 @@ export default class PrPage extends React.Component {
         }
       </div>
       <div>
-        <AddPrModal />
+        <AddPrModal userId={this.state.userId} prs={this.state.prs} />
       </div>
     </div>
     );
@@ -44,14 +44,21 @@ class AddPrModal extends React.Component {
     this.onType = this.onType.bind(this);
     this.onClick = this.onClick.bind(this);
     this.addExercise = this.addExercise.bind(this);
+    this.submitPR = this.submitPR.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       isOpen: false,
       exercises: [],
+      prs: this.props.prs,
       filteredExercises: [],
       activeSuggestions: 0,
       showSuggestions: false,
       userInput: '',
-      addExercise: []
+      addExercise: [],
+      userId: this.props.userId,
+      exerciseId: 1,
+      reps: '',
+      weight: ''
     };
   }
 
@@ -73,9 +80,48 @@ class AddPrModal extends React.Component {
 
   addExercise() {
     event.preventDefault();
+    for (let i = 0; i < this.state.exercises.length; i++) {
+      if (this.state.userInput === this.state.exercises[i].exercise) {
+        this.setState({
+          exerciseId: this.state.exercises[i].exerciseId
+        });
+      }
+    }
     this.setState({
       addExercise: this.state.userInput,
       userInput: ''
+    });
+  }
+
+  submitPR() {
+    event.preventDefault();
+    const { userId, exerciseId, reps, weight } = this.state;
+    fetch('/api/pr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId: userId,
+        exerciseId: exerciseId,
+        reps: reps,
+        weight: weight
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        const updatedPrArray = this.state.prs.concat(data);
+        this.setState({
+          prs: updatedPrArray,
+          isOpen: false,
+          addExercise: []
+        });
+      });
+  }
+
+  handleChange() {
+    const value = event.target.value;
+    this.setState({
+      ...this.state,
+      [event.target.name]: value
     });
   }
 
@@ -117,8 +163,17 @@ class AddPrModal extends React.Component {
             <div className="modal-content">
               <h1>Add PR's</h1>
               <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
-              <div>
-                <h1>{this.state.addExercise}</h1>
+              <div className="row">
+                <form onSubmit={this.submitPR}>
+                  <h1>{this.state.addExercise}</h1>
+                  <h5>Number of Reps</h5>
+                  <input type="text" name="reps" onChange={this.handleChange}></input>
+                  <h5>Weight (lbs)</h5>
+                  <input type="text" name="weight" onChange={this.handleChange}></input>
+                  <div>
+                    <button type="submit">Submit PR</button>
+                  </div>
+                </form>
               </div>
               <div>
                 <button onClick={this.handleClose}>Close</button>
@@ -166,9 +221,9 @@ class Search extends React.Component {
         listSuggestions = (
           <div>
             <ul className="suggestions">
-              {filteredExercises.map((suggestion, index) => {
+              {filteredExercises.map(suggestion => {
                 return (
-                  <li key={suggestion.exercise} onClick={this.props.click}>
+                  <li key={suggestion.exerciseId} onClick={this.props.click}>
                     {suggestion.exercise}
                   </li>
                 );

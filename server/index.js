@@ -24,7 +24,8 @@ app.use(errorMiddleware);
 
 app.get('/api/exercise-list', (req, res, next) => {
   const sql = `
-  select "exercise"
+  select "exercise",
+         "exerciseId"
   from "exerciseList"
   `;
 
