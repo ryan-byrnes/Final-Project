@@ -228,7 +228,7 @@ function Pr(props) {
   const { exercise, reps, weight } = props.pr;
   return (
     <div className="row justify-content-center container-list">
-      <div className="column-third border-bottom-lightgray padding-left-10">
+      <div className="column-15 border-bottom-lightgray padding-left-10">
         <h3 className="font-weight-bold">{ exercise }</h3>
       </div>
       <div className="flex-basis border-bottom-lightgray">
