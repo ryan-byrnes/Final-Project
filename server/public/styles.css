@@ -1,3 +1,7 @@
+* {
+  font-family: sans-serif;
+}
+
 body {
   position: relative;
 }
@@ -6,10 +10,97 @@ input {
   border: 1px solid #999;
   padding: 0.5rem;
   width: 300px;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.input-width {
+  width: 150px;
+}
+
+.button-width {
+  width: 100px;
+}
+
+.button-height {
+  height: 35px;
+}
+
+.border-radius-5 {
+  border-radius: 5px;
+}
+
+.button-color-close {
+  background-color: rgb(123, 123, 123);
+  color: white;
+}
+
+.button-color-primary {
+  background-color: #227cff;
+  color: white;
+}
+
+.row {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.margin-bottom-5 {
+  margin-bottom: 5px;
+}
+
+.column-third {
+  flex-basis: 15%;
+}
+
+.flex-basis {
+  flex-basis: 7%;
+}
+
+.border-bottom-lightgray {
+  border-bottom: 1px solid lightgray;
+}
+
+.border-bottom-black {
+  border-bottom: 3px solid black;
+}
+
+.column-half {
+  flex-basis: 50%;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.margin-left {
+  margin-left: 30px;
 }
 
 .height {
   height: 34px;
+}
+
+.padding-left-10 {
+  padding-left: 10px;
 }
 
 .modal {
@@ -26,7 +117,7 @@ input {
 
 .modal-content {
   width: 500px;
-  height: 500px;
+  height: 350px;
   background-color: white;
   display: flex;
   flex-direction: column;
