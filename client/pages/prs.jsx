@@ -29,12 +29,12 @@ export default class PrPage extends React.Component {
       <div>
         <div className="row justify-content-center">
           <div className="column-half border-bottom-black text-align-center">
-            <h2>Personal Records</h2>
+            <h2 className="font-weight-bold">Personal Records</h2>
           </div>
         </div>
         {
           this.state.prs.map(pr => (
-            <div key={pr.prId}>
+            <div className="prs" key={pr.prId}>
               <Pr pr={pr}/>
             </div>
           ))
@@ -86,7 +86,8 @@ class AddPrModal extends React.Component {
 
   handleClose() {
     this.setState({
-      isOpen: false
+      isOpen: false,
+      addExercise: []
     });
   }
 
@@ -162,7 +163,7 @@ class AddPrModal extends React.Component {
     if (!this.state.isOpen) {
       return (
         <div className="row justify-content-center margin-top-50">
-          <button className="button-width button-height border-radius-5 button-color-primary" onClick={this.handleOpen}>+ Add PR</button>
+          <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add PR</button>
         </div>
       );
     }
@@ -170,10 +171,10 @@ class AddPrModal extends React.Component {
       return (
         <div>
           <div className="row justify-content-center">
-            <button className="button-width button-height border-radius-5 button-color-primary">+ Add PR</button>
+            <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font">+ Add PR</button>
           </div>
           <div className="modal">
-            <div className="modal-content">
+            <div className="modal-content position-relative">
               <h1>Add PR</h1>
               <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
@@ -181,9 +182,9 @@ class AddPrModal extends React.Component {
                   <div className="row">
                     <h3 className="margin-bottom-5">{this.state.addExercise}</h3>
                   </div>
-                  <div className="row">
+                  <div className="row justify-content-center">
                     <div className="column-half margin-right-10">
-                      <h5>Number of Reps</h5>
+                      <h5>Number of Reps (RM)</h5>
                       <input className="input-width" type="text" name="reps" onChange={this.handleChange}></input>
                     </div>
                     <div className="column-half">
@@ -191,13 +192,13 @@ class AddPrModal extends React.Component {
                       <input className="input-width" type="text" name="weight" onChange={this.handleChange}></input>
                     </div>
                   </div>
-                  <div>
-                    <button className="button-width button-height border-radius-5 button-color-primary" type="submit">Submit PR</button>
+                  <div className="margin-top-10">
+                    <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit PR</button>
                   </div>
                 </form>
               </div>
               <div>
-                <button className="button-color-close button-width button-height"onClick={this.handleClose}>Close</button>
+                <button className="button-color-close button-width button-height position-absolute border-radius-5 add-pr-button-font" onClick={this.handleClose}>Close</button>
               </div>
             </div>
           </div>
@@ -210,11 +211,11 @@ class AddPrModal extends React.Component {
           <button>+ Add PR</button>
         </div>
         <div className="modal">
-          <div className="modal-content">
+          <div className="modal-content position-relative">
             <h1>Add PR</h1>
             <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
             <div>
-              <button className="button-height button-width border-radius-5 button-color-close" onClick={this.handleClose}>Close</button>
+              <button className="button-height button-width border-radius-5 button-color-close position-absolute add-pr-button-font" onClick={this.handleClose}>Close</button>
             </div>
           </div>
         </div>
@@ -226,12 +227,12 @@ class AddPrModal extends React.Component {
 function Pr(props) {
   const { exercise, reps, weight } = props.pr;
   return (
-    <div className="row justify-content-center">
+    <div className="row justify-content-center container-list">
       <div className="column-third border-bottom-lightgray padding-left-10">
-        <h3>{ exercise }</h3>
+        <h3 className="font-weight-bold">{ exercise }</h3>
       </div>
       <div className="flex-basis border-bottom-lightgray">
-        <h3>{ reps } RM:</h3>
+        <h3 className="font-weight-bold">{ reps } RM:</h3>
       </div>
       <div className="flex-basis border-bottom-lightgray">
         <h3>{weight} lbs</h3>
@@ -274,7 +275,7 @@ class Search extends React.Component {
     return (
       <form onSubmit={this.props.addExercise}>
         <input type="text" onChange={this.props.onType} value={userInput} />
-        <button className="button-width button-height border-radius-5 button-color-primary height" type="submit">Add</button>
+        <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font height" type="submit">Add</button>
         {listSuggestions}
       </form>
     );
