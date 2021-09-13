@@ -21,6 +21,30 @@ button:hover {
   cursor: pointer;
 }
 
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.flex-basis-30 {
+  flex-basis: 30%;
+}
+
+.background-color-gray {
+  background-color: rgb(53, 53, 53);
+}
+
+.header-height {
+  height: 50px;
+}
+
+.align-items-end {
+  align-items: flex-end;
+}
+
+.color-white {
+  color: white;
+}
+
 .add-pr-button-font {
   font-weight: 800;
   font-size: large;

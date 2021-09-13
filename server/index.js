@@ -122,8 +122,8 @@ app.put('/api/pr/:prId', (req, res, next) => {
 
     db.query(sql, params)
       .then(result => {
-        const pr = result.rows[0];
-        if (!pr) {
+        const prToUpdate = result.rows[0];
+        if (!prToUpdate) {
           res.status(404).json({ error: 'pr does not exist' });
         } else {
           res.status(200).json(req.body);

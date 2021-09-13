@@ -1,8 +1,16 @@
 import React from 'react';
-import Home from './pages/home';
+import PrPage from './pages/prs';
+import Header from './components/header';
+import Example from './components/date-picker';
 
 export default class App extends React.Component {
   render() {
-    return <Home />;
+    return (
+      <>
+      <Example />
+       <Header />
+       <PrPage />
+      </>
+    );
   }
 }
