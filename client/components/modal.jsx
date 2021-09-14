@@ -12,12 +12,14 @@ export default class TrainingModal extends React.Component {
       userInput: '',
       addExercise: [],
       exerciseId: 1,
-      ModalisOpen: this.props.ModalisOpen
+      ModalisOpen: this.props.ModalisOpen,
+      newSet: [{ reps: '', weight: '' }]
     };
     this.onType = this.onType.bind(this);
     this.onClick = this.onClick.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addSet = this.addSet.bind(this);
   }
 
   componentDidMount() {
@@ -41,12 +43,23 @@ export default class TrainingModal extends React.Component {
     });
   }
 
-  handleChange() {
-    const value = event.target.value;
-    this.setState({
-      ...this.state,
-      [event.target.name]: value
-    });
+  addSet() {
+    event.preventDefault();
+    this.setState(({
+      newSet: [...this.state.newSet, { reps: '', weight: '' }]
+    }));
+  }
+
+  removeSet(index) {
+    const newSet = this.state.newSet;
+    newSet.splice(index, 1);
+    this.setState({ newSet });
+  }
+
+  handleChange(index, event) {
+    const newSet = this.state.newSet;
+    newSet[index][event.target.name] = event.target.value;
+    this.setState({ newSet });
   }
 
   onType(event) {
@@ -79,28 +92,36 @@ export default class TrainingModal extends React.Component {
               <h1>Add Exercise</h1>
               <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
-                <form onSubmit={this.submitPR}>
+                <form>
                   <div className="row">
                     <h3 className="margin-bottom-5">{this.state.addExercise}</h3>
                   </div>
-                  <div className="row justify-content-center align-items-flex-end">
-                    <div className="column-third margin-right-10">
-                      <h5>Sets</h5>
-                      <div className="row justify-content-center align-items-center">
-                        <p>1</p>
-                      </div>
-                    </div>
+                  {this.state.newSet.map((element, index) => (
+                  <div className="row justify-content-center align-items-flex-end" key={index}>
                     <div className="column-third margin-right-10">
                       <h5>Number of Reps (RM)</h5>
-                      <input className="input-width" type="text" name="reps" onChange={this.handleChange}></input>
+                      <input className="input-width" type="text" name="reps" onChange={event => this.handleChange(index, event)}></input>
                     </div>
                     <div className="column-third">
                       <h5>Weight (lbs)</h5>
-                      <input className="input-width" type="text" name="weight" onChange={this.handleChange}></input>
+                      <input className="input-width" type="text" name="weight" onChange={event => this.handleChange(index, event)}></input>
+                      <div className="row justify-content-end margin-top-10">
+                        <div>
+                            <button type="button" onClick={() => this.addSet()}>Add Set</button>
+                        </div>
+                          {
+                            index
+                              ? <div className="margin-left-10">
+                                <button type="button" onClick={() => this.removeSet(index)}>Remove Set</button>
+                              </div>
+                              : null
+                          }
+                      </div>
                     </div>
                   </div>
+                  ))}
                   <div className="margin-top-10">
-                    <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit PR</button>
+                    <button type="button" className="button-width button-height border-radius-5 button-color-primary add-pr-button-font" type="submit" onClick={() => this.addSet()}>Submit PR</button>
                   </div>
                 </form>
               </div>
