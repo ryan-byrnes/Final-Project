@@ -121,7 +121,7 @@ export default class TrainingModal extends React.Component {
                   </div>
                   ))}
                   <div className="margin-top-10">
-                    <button type="button" className="button-width button-height border-radius-5 button-color-primary add-pr-button-font" type="submit" onClick={() => this.addSet()}>Submit PR</button>
+                    <button type="button" className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" type="submit" onClick={() => this.addSet()}>Submit Exercise</button>
                   </div>
                 </form>
               </div>
