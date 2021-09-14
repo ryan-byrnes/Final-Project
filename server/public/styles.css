@@ -41,6 +41,10 @@ button:hover {
   align-items: flex-end;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .color-white {
   color: white;
 }
@@ -79,6 +83,10 @@ button:hover {
 
 .button-width {
   width: 100px;
+}
+
+.button-width-150 {
+  width: 150px;
 }
 
 .button-height {
@@ -125,6 +133,10 @@ button:hover {
 
 .column-15 {
   flex-basis: 15%;
+}
+
+.column-third {
+  flex-basis: 40%;
 }
 
 .flex-basis {
@@ -215,6 +227,10 @@ button:hover {
 
 .suggestions li:not(:last-of-type) {
   border-bottom: 1px solid #999;
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 @media only screen and (max-width: 777px) {
