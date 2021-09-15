@@ -121,11 +121,6 @@ a:hover {
   border-radius: 5px;
 }
 
-.button-color-close {
-  background-color: rgb(123, 123, 123);
-  color: white;
-}
-
 .button-color-primary {
   background-color: #227cff;
   color: white;
