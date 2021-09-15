@@ -20,8 +20,6 @@ app.use(jsonMiddleware);
 
 app.use(staticMiddleware);
 
-app.use(errorMiddleware);
-
 app.get('/api/exercise-list', (req, res, next) => {
   const sql = `
   select "exercise",
@@ -84,10 +82,10 @@ app.post('/api/pr', (req, res, next) => {
 });
 
 app.post('/api/training', (req, res, next) => {
-  const { date, exerciseId, newSet, userId } = req.body;
+  const { date, exerciseId, sets, userId } = req.body;
 
-  if (!date || !exerciseId || !newSet) {
-    throw new ClientError(400, 'Date, exerciseId, sets, reps, and weight are required fields.');
+  if (!date || !exerciseId || !sets) {
+    throw new ClientError(400, 'Date, exerciseId, and sets are required fields.');
   }
   const sql = `
   insert into "trainingLog" ("date", "exerciseId", "sets", "userId")
@@ -95,11 +93,11 @@ app.post('/api/training', (req, res, next) => {
   returning *
   `;
 
-  const params = [date, exerciseId, newSet, userId];
+  const params = [date, exerciseId, sets, userId];
 
   db.query(sql, params)
     .then(result => {
-      res.json(result.rows[0]);
+      res.status(200).json(result.rows[0]);
     })
     .catch(err => next(err));
 });
@@ -132,6 +130,8 @@ app.put('/api/pr/:prId', (req, res, next) => {
       .catch(err => next(err));
   }
 });
+
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

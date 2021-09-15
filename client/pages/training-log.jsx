@@ -8,11 +8,15 @@ export default class TrainingLog extends React.Component {
     this.state = {
       userId: 1,
       ModalIsOpen: false,
-      startDate: new Date()
+      startDate: new Date(),
+      trainingLog: [],
+      newSet: [{ reps: '', weight: '' }],
+      exerciseId: 1
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.submitExercise = this.submitExercise.bind(this);
   }
 
   handleChange(date) {
@@ -34,10 +38,34 @@ export default class TrainingLog extends React.Component {
     });
   }
 
+  submitExercise() {
+    event.preventDefault();
+    const { startDate, userId, newSet, exerciseId } = this.state;
+    fetch('/api/training', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        date: startDate,
+        exerciseId: exerciseId,
+        sets: JSON.stringify(newSet),
+        userId: userId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        const session = this.state.trainingLog.concat(data);
+        this.setState({
+          trainingLog: session,
+          ModalIsOpen: false,
+          addExercise: []
+        });
+      });
+  }
+
   render() {
     if (this.state.ModalIsOpen) {
       return (
-        <TrainingModal handleClose={this.handleClose} isOpen={this.state.ModalisOpen} date={this.state.startDate} />
+        <TrainingModal exerciseId={this.state.exerciseId} newSet={this.state.newSet} handleClose={this.handleClose} isOpen={this.state.ModalisOpen} date={this.state.startDate} submitExercise={this.submitExercise} />
       );
     }
     return (

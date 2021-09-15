@@ -11,18 +11,16 @@ export default class TrainingModal extends React.Component {
       showSuggestions: false,
       userInput: '',
       addExercise: [],
-      exerciseId: 1,
+      exerciseId: this.props.exerciseId,
       ModalisOpen: this.props.ModalisOpen,
-      newSet: [{ reps: '', weight: '' }],
-      date: this.props.date,
-      trainingLog: []
+      newSet: this.props.newSet,
+      date: this.props.date
     };
     this.onType = this.onType.bind(this);
     this.onClick = this.onClick.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSet = this.addSet.bind(this);
-    this.submitExercise = this.submitExercise.bind(this);
   }
 
   componentDidMount() {
@@ -87,29 +85,6 @@ export default class TrainingModal extends React.Component {
     });
   }
 
-  submitExercise() {
-    const { date, userId, exerciseId, newSet } = this.state;
-    fetch('/api/training', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        date: date,
-        exerciseId: exerciseId,
-        sets: newSet,
-        userId: userId
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        const session = this.state.trainingLog.concat(data);
-        this.setState({
-          trainingLog: session,
-          ModalIsOpen: false,
-          addExercise: []
-        });
-      });
-  }
-
   render() {
     if (this.state.addExercise.length > 0) {
       return (
@@ -118,7 +93,7 @@ export default class TrainingModal extends React.Component {
               <h1>Add Exercise</h1>
               <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
-                <form onSubmit={this.submitExercise}>
+                <form onSubmit={this.props.submitExercise}>
                   <div className="row">
                     <h3 className="margin-bottom-5">{this.state.addExercise}</h3>
                   </div>
@@ -152,7 +127,7 @@ export default class TrainingModal extends React.Component {
                 </form>
               </div>
               <div>
-                <button className="button-color-close button-width button-height position-absolute border-radius-5 add-pr-button-font" onClick={this.props.handleClose}>Close</button>
+              <a className="color-red position-absolute close-size" onClick={this.props.handleClose}><i className="fas fa-times"></i></a>
               </div>
             </div>
           </div>
@@ -164,7 +139,7 @@ export default class TrainingModal extends React.Component {
             <h1>Add Exercise</h1>
             <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
             <div>
-              <button className="button-height button-width border-radius-5 button-color-close position-absolute add-pr-button-font" onClick={this.props.handleClose}>Close</button>
+            <a className="color-red position-absolute close-size" onClick={this.props.handleClose}><i className="fas fa-times"></i></a>
             </div>
           </div>
         </div>

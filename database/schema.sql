@@ -38,8 +38,6 @@ CREATE TABLE "public"."trainingLog" (
 	"userId" integer NOT NULL,
 	"date" timestamp with time zone NOT NULL,
 	"sets" json NOT NULL,
-	"reps" integer,
-	"weight" integer,
 	"exerciseId" integer NOT NULL
 ) WITH (
   OIDS=FALSE

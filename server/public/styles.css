@@ -21,6 +21,14 @@ button:hover {
   cursor: pointer;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
 .justify-content-space-between {
   justify-content: space-between;
 }
@@ -80,9 +88,17 @@ button:hover {
 }
 
 .position-absolute {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.close-size {
+  font-size: 1.5rem;
+}
+
+.color-red {
+  color: red;
 }
 
 .input-width {
@@ -197,7 +213,7 @@ button:hover {
 
 .modal-content {
   width: 500px;
-  height: 350px;
+  height: 60%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -242,7 +258,7 @@ button:hover {
 }
 
 .overflow-scroll {
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 @media only screen and (max-width: 777px) {
@@ -281,6 +297,10 @@ button:hover {
     padding: 0.5rem;
     width: 250px;
     border-radius: 5px;
+  }
+
+  .flex-basis-30 {
+    flex-basis: 50%;
   }
 
   .flex-basis {
