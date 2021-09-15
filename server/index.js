@@ -83,19 +83,19 @@ app.post('/api/pr', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/training/:userId', (req, res, next) => {
-  const { date, exerciseId, sets, reps, weight, userId } = req.body;
+app.post('/api/training', (req, res, next) => {
+  const { date, exerciseId, newSet, userId } = req.body;
 
-  if (!date || !exerciseId || !sets || !reps || !weight) {
+  if (!date || !exerciseId || !newSet) {
     throw new ClientError(400, 'Date, exerciseId, sets, reps, and weight are required fields.');
   }
   const sql = `
-  insert into "trainingLog" ("date", "exerciseId", "sets", "reps", "weight", "userId")
-  values ($1, $2, $3, $4, $5, $6)
+  insert into "trainingLog" ("date", "exerciseId", "sets", "userId")
+  values ($1, $2, $3, $4)
   returning *
   `;
 
-  const params = [date, exerciseId, sets, reps, weight, userId];
+  const params = [date, exerciseId, newSet, userId];
 
   db.query(sql, params)
     .then(result => {

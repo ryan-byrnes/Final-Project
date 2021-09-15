@@ -13,13 +13,16 @@ export default class TrainingModal extends React.Component {
       addExercise: [],
       exerciseId: 1,
       ModalisOpen: this.props.ModalisOpen,
-      newSet: [{ reps: '', weight: '' }]
+      newSet: [{ reps: '', weight: '' }],
+      date: this.props.date,
+      trainingLog: []
     };
     this.onType = this.onType.bind(this);
     this.onClick = this.onClick.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSet = this.addSet.bind(this);
+    this.submitExercise = this.submitExercise.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +87,29 @@ export default class TrainingModal extends React.Component {
     });
   }
 
+  submitExercise() {
+    const { date, userId, exerciseId, newSet } = this.state;
+    fetch('/api/training', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        date: date,
+        exerciseId: exerciseId,
+        sets: newSet,
+        userId: userId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        const session = this.state.trainingLog.concat(data);
+        this.setState({
+          trainingLog: session,
+          ModalIsOpen: false,
+          addExercise: []
+        });
+      });
+  }
+
   render() {
     if (this.state.addExercise.length > 0) {
       return (
@@ -92,7 +118,7 @@ export default class TrainingModal extends React.Component {
               <h1>Add Exercise</h1>
               <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
-                <form>
+                <form onSubmit={this.submitExercise}>
                   <div className="row">
                     <h3 className="margin-bottom-5">{this.state.addExercise}</h3>
                   </div>
@@ -121,7 +147,7 @@ export default class TrainingModal extends React.Component {
                   </div>
                   ))}
                   <div className="margin-top-10">
-                    <button type="button" className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" type="submit" onClick={() => this.addSet()}>Submit Exercise</button>
+                    <button type="submit" className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font">Submit Exercise</button>
                   </div>
                 </form>
               </div>
