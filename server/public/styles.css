@@ -21,6 +21,42 @@ button:hover {
   cursor: pointer;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.flex-basis-30 {
+  flex-basis: 30%;
+}
+
+.background-color-gray {
+  background-color: rgb(53, 53, 53);
+}
+
+.header-height {
+  height: 50px;
+}
+
+.align-items-end {
+  align-items: flex-end;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.color-white {
+  color: white;
+}
+
 .add-pr-button-font {
   font-weight: 800;
   font-size: large;
@@ -35,6 +71,14 @@ button:hover {
   width: 800px;
 }
 
+.text-align-right {
+  text-align: right;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
 .prs:nth-child(2n) {
   background-color: rgb(235, 234, 234);
 }
@@ -45,8 +89,16 @@ button:hover {
 
 .position-absolute {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  top: 10px;
+  left: 10px;
+}
+
+.close-size {
+  font-size: 1.5rem;
+}
+
+.color-red {
+  color: red;
 }
 
 .input-width {
@@ -57,17 +109,16 @@ button:hover {
   width: 100px;
 }
 
+.button-width-150 {
+  width: 150px;
+}
+
 .button-height {
   height: 35px;
 }
 
 .border-radius-5 {
   border-radius: 5px;
-}
-
-.button-color-close {
-  background-color: rgb(123, 123, 123);
-  color: white;
 }
 
 .button-color-primary {
@@ -95,12 +146,20 @@ button:hover {
   margin-right: 10px;
 }
 
+.margin-left-10 {
+  margin-left: 10px;
+}
+
 .margin-bottom-5 {
   margin-bottom: 5px;
 }
 
 .column-15 {
   flex-basis: 15%;
+}
+
+.column-third {
+  flex-basis: 40%;
 }
 
 .flex-basis {
@@ -149,7 +208,7 @@ button:hover {
 
 .modal-content {
   width: 500px;
-  height: 350px;
+  height: 60%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -193,6 +252,10 @@ button:hover {
   border-bottom: 1px solid #999;
 }
 
+.overflow-scroll {
+  overflow-y: auto;
+}
+
 @media only screen and (max-width: 777px) {
   .flex-basis {
     flex-basis: 8%;
@@ -229,6 +292,10 @@ button:hover {
     padding: 0.5rem;
     width: 250px;
     border-radius: 5px;
+  }
+
+  .flex-basis-30 {
+    flex-basis: 50%;
   }
 
   .flex-basis {

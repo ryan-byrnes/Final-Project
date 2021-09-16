@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './app';
-import PrPage from './pages/prs';
+import App from './app';
 
 ReactDOM.render(
-  <PrPage />,
+  <App />,
   document.querySelector('#root')
 );

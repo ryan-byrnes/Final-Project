@@ -20,8 +20,6 @@ app.use(jsonMiddleware);
 
 app.use(staticMiddleware);
 
-app.use(errorMiddleware);
-
 app.get('/api/exercise-list', (req, res, next) => {
   const sql = `
   select "exercise",
@@ -83,6 +81,27 @@ app.post('/api/pr', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/training', (req, res, next) => {
+  const { date, exerciseId, sets, userId } = req.body;
+
+  if (!date || !exerciseId || !sets) {
+    throw new ClientError(400, 'Date, exerciseId, and sets are required fields.');
+  }
+  const sql = `
+  insert into "trainingLog" ("date", "exerciseId", "sets", "userId")
+  values ($1, $2, $3, $4)
+  returning *
+  `;
+
+  const params = [date, exerciseId, sets, userId];
+
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.put('/api/pr/:prId', (req, res, next) => {
   const id = parseInt(req.params.prId, 10);
   const { reps, weight } = req.body;
@@ -101,8 +120,8 @@ app.put('/api/pr/:prId', (req, res, next) => {
 
     db.query(sql, params)
       .then(result => {
-        const pr = result.rows[0];
-        if (!pr) {
+        const prToUpdate = result.rows[0];
+        if (!prToUpdate) {
           res.status(404).json({ error: 'pr does not exist' });
         } else {
           res.status(200).json(req.body);
@@ -111,6 +130,8 @@ app.put('/api/pr/:prId', (req, res, next) => {
       .catch(err => next(err));
   }
 });
+
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

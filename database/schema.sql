@@ -37,9 +37,7 @@ CREATE TABLE "public"."prs" (
 CREATE TABLE "public"."trainingLog" (
 	"userId" integer NOT NULL,
 	"date" timestamp with time zone NOT NULL,
-	"sets" integer NOT NULL,
-	"reps" integer NOT NULL,
-	"weight" integer NOT NULL,
+	"sets" json NOT NULL,
 	"exerciseId" integer NOT NULL
 ) WITH (
   OIDS=FALSE
