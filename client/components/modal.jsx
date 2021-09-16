@@ -11,16 +11,20 @@ export default class TrainingModal extends React.Component {
       showSuggestions: false,
       userInput: '',
       addExercise: [],
-      exerciseId: this.props.exerciseId,
-      ModalisOpen: this.props.ModalisOpen,
-      newSet: this.props.newSet,
-      date: this.props.date
+      exerciseId: 1,
+      isOpen: false,
+      newSet: [{ reps: '', weight: '' }],
+      startDate: this.props.date,
+      trainingLog: []
     };
     this.onType = this.onType.bind(this);
     this.onClick = this.onClick.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addSet = this.addSet.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.submitExercise = this.submitExercise.bind(this);
   }
 
   componentDidMount() {
@@ -53,14 +57,18 @@ export default class TrainingModal extends React.Component {
 
   removeSet(index) {
     const newSet = this.state.newSet;
-    newSet.splice(index, 1);
-    this.setState({ newSet });
+    const cloneSet = [...newSet.slice(0, index), ...newSet.slice(index + 1)];
+    this.setState({
+      newSet: cloneSet
+    });
   }
 
   handleChange(index, event) {
-    const newSet = this.state.newSet;
-    newSet[index][event.target.name] = event.target.value;
-    this.setState({ newSet });
+    const setCopy = this.state.newSet.slice(0);
+    const exerciseCopy = Object.assign({}, setCopy[index]);
+    exerciseCopy[event.target.name] = event.target.value;
+    setCopy[index] = exerciseCopy;
+    this.setState({ newSet: setCopy });
   }
 
   onType(event) {
@@ -85,7 +93,54 @@ export default class TrainingModal extends React.Component {
     });
   }
 
+  handleOpen() {
+    this.setState({
+      isOpen: true
+    });
+  }
+
+  handleClose() {
+    this.setState({
+      isOpen: false,
+      addExercise: [],
+      newSet: [{ reps: '', weight: '' }]
+    });
+  }
+
+  submitExercise() {
+    event.preventDefault();
+    const { startDate, userId, newSet, exerciseId } = this.state;
+    fetch('/api/training', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        date: startDate,
+        exerciseId: exerciseId,
+        sets: JSON.stringify(newSet),
+        userId: userId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        const session = this.state.trainingLog.concat(data);
+        this.setState({
+          trainingLog: session,
+          isOpen: false,
+          addExercise: []
+        });
+      });
+  }
+
   render() {
+    if (!this.state.isOpen) {
+      return (
+        <div className="container">
+          <div className="row justify-content-center margin-top-50">
+            <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Session</button>
+          </div>
+        </div>
+      );
+    }
     if (this.state.addExercise.length > 0) {
       return (
           <div className="modal">
@@ -93,7 +148,7 @@ export default class TrainingModal extends React.Component {
               <h1>Add Exercise</h1>
               <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
-                <form onSubmit={this.props.submitExercise}>
+                <form onSubmit={this.submitExercise}>
                   <div className="row">
                     <h3 className="margin-bottom-5">{this.state.addExercise}</h3>
                   </div>
@@ -111,11 +166,10 @@ export default class TrainingModal extends React.Component {
                             <button type="button" onClick={() => this.addSet()}>Add Set</button>
                         </div>
                           {
-                            index
-                              ? <div className="margin-left-10">
+                            index > 0 &&
+                              <div className="margin-left-10">
                                 <button type="button" onClick={() => this.removeSet(index)}>Remove Set</button>
                               </div>
-                              : null
                           }
                       </div>
                     </div>
@@ -127,7 +181,7 @@ export default class TrainingModal extends React.Component {
                 </form>
               </div>
               <div>
-              <a className="color-red position-absolute close-size" onClick={this.props.handleClose}><i className="fas fa-times"></i></a>
+              <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
               </div>
             </div>
           </div>
@@ -139,7 +193,7 @@ export default class TrainingModal extends React.Component {
             <h1>Add Exercise</h1>
             <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
             <div>
-            <a className="color-red position-absolute close-size" onClick={this.props.handleClose}><i className="fas fa-times"></i></a>
+            <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
             </div>
           </div>
         </div>
