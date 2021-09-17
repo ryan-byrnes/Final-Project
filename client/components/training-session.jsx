@@ -20,15 +20,22 @@ export default class TrainingSession extends React.Component {
 
   async componentDidUpdate(prevProps) {
     if (this.props.date !== prevProps.date) {
-      this.setState({
+      await this.setState({
         startDate: this.props.date
       });
+      const date = moment(this.state.startDate).format();
+      const sessionDate = date.slice(0, 10);
+      fetch(`/api/training/${sessionDate}`)
+        .then(res => res.json())
+        .then(trainingSession => {
+          this.setState({ trainingSession });
+        });
+      // const date = moment(this.state.startDate).format();
+      // const sessionDate = date.slice(0, 10);
+      // const response = await fetch(`/api/training/${sessionDate}`);
+      // const trainingSession = await response.json();
+      // this.setState({ trainingSession });
     }
-    const date = moment(this.state.startDate).format();
-    const sessionDate = date.slice(0, 10);
-    const response = await fetch(`/api/training/${sessionDate}`);
-    const trainingSession = await response.json();
-    this.setState({ trainingSession });
   }
 
   render() {

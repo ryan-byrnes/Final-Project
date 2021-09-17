@@ -48,12 +48,7 @@ app.get('/api/training/:date', (req, res, next) => {
 
   db.query(sql, params)
     .then(result => {
-      const session = result.rows[0];
-      if (!session) {
-        res.status(404).json({ error: 'no training session' });
-      } else {
-        res.status(200).json(result.rows);
-      }
+      res.status(200).json(result.rows);
     })
     .catch(err => next(err));
 });
