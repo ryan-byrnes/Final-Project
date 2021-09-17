@@ -31,6 +31,32 @@ app.get('/api/exercise-list', (req, res, next) => {
     .then(result => res.status(200).json(result.rows));
 });
 
+app.get('/api/training/:date', (req, res, next) => {
+  const userId = 1;
+  const date = req.params.date;
+  const sql = `
+  select "e"."exercise",
+         "t"."sets",
+         "t"."exerciseId"
+    from "trainingLog" as "t"
+    join "exerciseList" as "e" using ("exerciseId")
+   where "userId" = $1 AND date("date") = date($2)
+   order by "date"
+  `;
+
+  const params = [userId, date];
+
+  db.query(sql, params)
+    .then(result => {
+      const session = result.rows[0];
+      if (!session) {
+        res.status(404).json({ error: 'no training session' });
+      }
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/pr/:userId', (req, res, next) => {
   const id = parseInt(req.params.userId, 10);
   if (!Number.isInteger(id) || id <= 0) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import Search from './search-bar';
+import TrainingSession from './training-session';
 
 export default class TrainingModal extends React.Component {
   constructor(props) {
@@ -135,6 +136,12 @@ export default class TrainingModal extends React.Component {
     if (!this.state.isOpen) {
       return (
         <div className="container">
+          <div className="row margin-top-10 justify-content-center width-100">
+            <h1 className="border-bottom-black">Training Log</h1>
+          </div>
+          <div className="row margin-top-10 flex-direction-column align-items-center width-100">
+            <TrainingSession date={this.state.startDate} />
+          </div>
           <div className="row justify-content-center margin-top-50">
             <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Session</button>
           </div>
