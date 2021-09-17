@@ -30,11 +30,6 @@ export default class TrainingSession extends React.Component {
         .then(trainingSession => {
           this.setState({ trainingSession });
         });
-      // const date = moment(this.state.startDate).format();
-      // const sessionDate = date.slice(0, 10);
-      // const response = await fetch(`/api/training/${sessionDate}`);
-      // const trainingSession = await response.json();
-      // this.setState({ trainingSession });
     }
   }
 
@@ -44,11 +39,11 @@ export default class TrainingSession extends React.Component {
       return null;
     }
     return (
-      session.map(exercise => {
+      session.map((exercise, index) => {
         return (
           <div className="row width-80 justify-content-center align-items-start border-bottom-lightgray training-log padding-top-10" key={exercise.exerciseId}>
               <div className="flex text-align-center">
-                <h4 className="margin-top-0 font-weight-bold">{exercise.exercise}</h4>
+                <h4 className="margin-top-0 font-weight-bold">{index + 1}. {exercise.exercise}</h4>
               </div>
               <div className="flex">
                 {exercise.sets.map((set, index) => {
