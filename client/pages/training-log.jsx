@@ -7,8 +7,7 @@ export default class TrainingLog extends React.Component {
     super(props);
     this.state = {
       userId: 1,
-      startDate: new Date(),
-      trainingLog: []
+      startDate: new Date()
     };
     this.handleChange = this.handleChange.bind(this);
   }

@@ -34,6 +34,14 @@ export default class TrainingModal extends React.Component {
       .then(exercises => this.setState({ exercises }));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.date !== prevProps.date) {
+      this.setState({
+        startDate: this.props.date
+      });
+    }
+  }
+
   addExercise() {
     event.preventDefault();
     for (let i = 0; i < this.state.exercises.length; i++) {

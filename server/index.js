@@ -33,7 +33,7 @@ app.get('/api/exercise-list', (req, res, next) => {
 
 app.get('/api/training/:date', (req, res, next) => {
   const userId = 1;
-  const date = req.params.date;
+  const sessionDate = req.params.date;
   const sql = `
   select "e"."exercise",
          "t"."sets",
@@ -44,15 +44,16 @@ app.get('/api/training/:date', (req, res, next) => {
    order by "date"
   `;
 
-  const params = [userId, date];
+  const params = [userId, sessionDate];
 
   db.query(sql, params)
     .then(result => {
       const session = result.rows[0];
       if (!session) {
         res.status(404).json({ error: 'no training session' });
+      } else {
+        res.status(200).json(result.rows);
       }
-      res.status(200).json(result.rows);
     })
     .catch(err => next(err));
 });
@@ -79,8 +80,9 @@ app.get('/api/pr/:userId', (req, res, next) => {
       const pr = result.rows[0];
       if (!pr) {
         res.status(404).json({ error: 'no prs' });
+      } else {
+        res.status(200).json(result.rows);
       }
-      res.status(200).json(result.rows);
     })
     .catch(err => next(err));
 

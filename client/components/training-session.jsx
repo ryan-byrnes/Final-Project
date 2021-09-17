@@ -5,37 +5,37 @@ export default class TrainingSession extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trainingSession: [{
-        exercise: 'Bench Press',
-        exerciseId: 2,
-        sets: [
-          {
-            reps: 5,
-            weight: 200
-          },
-          {
-            reps: 5,
-            weight: 205
-          }
-        ]
-      }],
-      date: this.props.date
+      trainingSession: [],
+      startDate: this.props.date
     };
   }
 
-  // componentDidMount() {
-  //   const date = moment(this.state.date).format();
-  //   fetch(`/api/training/${date}`)
-  //     .then(res => res.json())
-  //     .then(trainingSession => {
-  //       this.setState({
-  //         trainingSession
-  //       });
-  //     });
-  // }
+  async componentDidMount() {
+    const date = moment(this.state.startDate).format();
+    const sessionDate = date.slice(0, 10);
+    const response = await fetch(`/api/training/${sessionDate}`);
+    const trainingSession = await response.json();
+    this.setState({ trainingSession });
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (this.props.date !== prevProps.date) {
+      this.setState({
+        startDate: this.props.date
+      });
+    }
+    const date = moment(this.state.startDate).format();
+    const sessionDate = date.slice(0, 10);
+    const response = await fetch(`/api/training/${sessionDate}`);
+    const trainingSession = await response.json();
+    this.setState({ trainingSession });
+  }
 
   render() {
     const session = this.state.trainingSession;
+    if (!session) {
+      return null;
+    }
     return (
       session.map(exercise => {
         return (
