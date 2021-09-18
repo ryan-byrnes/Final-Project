@@ -19,7 +19,7 @@ export default class TrainingSession extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.date !== this.state.startDate) {
-      const sessionDate = moment(this.state.startDate).format('LL');
+      const sessionDate = moment(this.props.date).format('LL');
       fetch(`/api/training/${sessionDate}`)
         .then(res => res.json())
         .then(trainingSession => {

@@ -10,7 +10,7 @@ export default class TrainingLog extends React.Component {
       userId: 1,
       isOpen: false,
       startDate: new Date(),
-      workout: [],
+      trainingSession: [],
       sets: [{ reps: '', weight: '' }],
       exerciseId: 1
     };
@@ -19,6 +19,9 @@ export default class TrainingLog extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.submitExercise = this.submitExercise.bind(this);
     this.addSet = this.addSet.bind(this);
+    this.repsWeightInput = this.repsWeightInput.bind(this);
+    this.removeSet = this.removeSet.bind(this);
+    this.getExerciseId = this.getExerciseId.bind(this);
   }
 
   handleChange(date) {
@@ -29,36 +32,36 @@ export default class TrainingLog extends React.Component {
 
   handleOpen() {
     this.setState({
-      ModalIsOpen: true
+      isOpen: true
     });
   }
 
   handleClose() {
     this.setState({
-      ModalIsOpen: false,
+      isOpen: false,
       addExercise: [],
-      newSet: [{ reps: '', weight: '' }]
+      sets: [{ reps: '', weight: '' }]
     });
   }
 
   submitExercise() {
     event.preventDefault();
-    const { startDate, userId, newSet, exerciseId } = this.state;
+    const { startDate, userId, sets, exerciseId } = this.state;
     fetch('/api/training', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         date: startDate,
         exerciseId: exerciseId,
-        sets: JSON.stringify(newSet),
+        sets: JSON.stringify(sets),
         userId: userId
       })
     })
       .then(res => res.json())
       .then(data => {
-        const session = this.state.trainingLog.concat(data);
+        const session = this.state.trainingSession.concat(data);
         this.setState({
-          trainingLog: session,
+          trainingSession: session,
           isOpen: false,
           addExercise: []
         });
@@ -72,18 +75,30 @@ export default class TrainingLog extends React.Component {
     }));
   }
 
+  getExerciseId(id) {
+    this.setState({
+      exerciseId: id
+    });
+  }
+
+  repsWeightInput(input) {
+    this.setState({
+      sets: input
+    });
+  }
+
   removeSet(index) {
-    const newSet = this.state.newSet;
+    const newSet = this.state.sets;
     const cloneSet = [...newSet.slice(0, index), ...newSet.slice(index + 1)];
     this.setState({
-      newSet: cloneSet
+      sets: cloneSet
     });
   }
 
   render() {
-    if (this.state.ModalIsOpen) {
+    if (this.state.isOpen) {
       return (
-        <TrainingModal sets={this.state.sets} addSet={this.addSet} removeSet={this.removeSet} exerciseId={this.state.exerciseId} newSet={this.state.newSet} handleClose={this.handleClose} isOpen={this.state.isOpen} date={this.state.startDate} submitExercise={this.submitExercise} />
+        <TrainingModal getExerciseId={this.getExerciseId} setInfo={this.repsWeightInput} sets={this.state.sets} addSet={this.addSet} removeSet={this.removeSet} exerciseId={this.state.exerciseId} newSet={this.state.sets} handleClose={this.handleClose} isOpen={this.state.isOpen} date={this.state.startDate} submitExercise={this.submitExercise} />
       );
     }
     return (

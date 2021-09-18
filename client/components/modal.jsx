@@ -12,10 +12,8 @@ export default class TrainingModal extends React.Component {
       isOpen: this.props.isOpen,
       startDate: this.props.date
     };
-    // this.onSelection = this.onSelection.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.exerciseSelected = this.exerciseSelected.bind(this);
   }
 
@@ -25,26 +23,12 @@ export default class TrainingModal extends React.Component {
       .then(exercises => this.setState({ exercises }));
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.date !== prevProps.date) {
-      this.setState({
-        startDate: this.props.date
-      });
-    }
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.addSet(this.state.newSet);
-  }
-
   addExercise() {
     event.preventDefault();
     for (let i = 0; i < this.state.exercises.length; i++) {
       if (this.state.selectedExercise === this.state.exercises[i].exercise) {
-        this.setState({
-          exerciseId: this.state.exercises[i].exerciseId
-        });
+        const id = this.state.exercises[i].exerciseId;
+        this.props.getExerciseId(id);
       }
     }
     this.setState({
@@ -54,11 +38,11 @@ export default class TrainingModal extends React.Component {
   }
 
   handleChange(index, event) {
-    const setCopy = this.state.newSet.slice(0);
+    const setCopy = this.props.newSet.slice(0);
     const exerciseCopy = Object.assign({}, setCopy[index]);
     exerciseCopy[event.target.name] = event.target.value;
     setCopy[index] = exerciseCopy;
-    this.setState({ newSet: setCopy });
+    this.props.setInfo(setCopy);
   }
 
   exerciseSelected(exercise) {
@@ -75,7 +59,7 @@ export default class TrainingModal extends React.Component {
               <h1>Add Exercise</h1>
               <Search selectedExercise={this.exerciseSelected} addExercise={this.addExercise} />
               <div className="row">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.props.submitExercise}>
                   <div className="row">
                     <h3 className="margin-bottom-5">{this.state.nextExercise}</h3>
                   </div>
@@ -90,12 +74,12 @@ export default class TrainingModal extends React.Component {
                       <input className="input-width" type="text" name="weight" onChange={event => this.handleChange(index, event)}></input>
                       <div className="row justify-content-end margin-top-10">
                         <div>
-                            <button type="button" onClick={() => this.addSet()}>Add Set</button>
+                            <button type="button" onClick={() => this.props.addSet({ reps: '', weight: '' })}>Add Set</button>
                         </div>
                           {
                             index > 0 &&
                               <div className="margin-left-10">
-                                <button type="button" onClick={() => this.removeSet(index)}>Remove Set</button>
+                                <button type="button" onClick={() => this.props.removeSet(index)}>Remove Set</button>
                               </div>
                           }
                       </div>
