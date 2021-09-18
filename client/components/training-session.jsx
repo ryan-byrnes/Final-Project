@@ -11,8 +11,7 @@ export default class TrainingSession extends React.Component {
   }
 
   async componentDidMount() {
-    const date = moment(this.state.startDate).format();
-    const sessionDate = date.slice(0, 10);
+    const sessionDate = moment(this.state.startDate).format('LL');
     const response = await fetch(`/api/training/${sessionDate}`);
     const trainingSession = await response.json();
     this.setState({ trainingSession });
