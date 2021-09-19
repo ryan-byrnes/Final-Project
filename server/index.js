@@ -53,19 +53,19 @@ app.get('/api/training/:date', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/prData/:exerciseName', (req, res, next) => {
-  const { exercise } = req.params.exerciseName;
+app.get('/api/prData/:exerciseId', (req, res, next) => {
+  const exerciseId = parseInt(req.params.exerciseId, 10);
   const sql = `
   select "e"."exercise",
          "p"."weight",
-         "p".date("date")
+         "p"."date"
     from "prs" as "p"
     join "exerciseList" as "e" using ("exerciseId")
-   where "exercise" = $1
+   where "exerciseId" = $1
    order by "date"
   `;
 
-  const params = [exercise];
+  const params = [exerciseId];
 
   db.query(sql, params)
     .then(result => {
