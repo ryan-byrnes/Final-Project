@@ -27,7 +27,8 @@ CREATE TABLE "public"."prs" (
 	"weight" integer NOT NULL,
 	"reps" integer NOT NULL,
 	"userId" integer NOT NULL,
-	"exerciseId" integer NOT NULL
+	"exerciseId" integer NOT NULL,
+  "date" timestamp with time zone NOT NULL
 ) WITH (
   OIDS=FALSE
 );
