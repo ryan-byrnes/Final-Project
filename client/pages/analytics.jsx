@@ -1,4 +1,5 @@
 import React from 'react';
+import PrGraph from '../components/graph';
 
 export default class Analytics extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class Analytics extends React.Component {
       exerciseId: 1
     };
     this.getExerciseId = this.getExerciseId.bind(this);
+    this.getGraphData = this.getGraphData.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +30,8 @@ export default class Analytics extends React.Component {
     }
   }
 
-  getGraphData() {
+  getGraphData(event) {
+    event.preventDefault();
     fetch(`/api/prData/${this.state.exerciseId}`)
       .then(res => res.json())
       .then(data => {
@@ -40,17 +43,20 @@ export default class Analytics extends React.Component {
 
   render() {
     return (
-      <form>
-        <select onChange={this.getExerciseId} name="prs">
-          <option value="">Choose an Exercise</option>
-          {this.state.exercises.map(exercise => {
-            return (
-              <option key={exercise.exerciseId}value={exercise.exercise}>{exercise.exercise}</option>
-            );
-          })}
-        </select>
-        <button type="submit">Submit</button>
-      </form>
+      <div>
+        <form onSubmit={this.getGraphData}>
+          <select onChange={this.getExerciseId} name="prs">
+            <option value="">Choose an Exercise</option>
+            {this.state.exercises.map(exercise => {
+              return (
+                <option key={exercise.exerciseId}value={exercise.exercise}>{exercise.exercise}</option>
+              );
+            })}
+          </select>
+          <button type="submit">Submit</button>
+        </form>
+        <PrGraph prData={this.state.prData} />
+      </div>
     );
   }
 }

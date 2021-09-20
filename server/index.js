@@ -58,7 +58,7 @@ app.get('/api/prData/:exerciseId', (req, res, next) => {
   const sql = `
   select "e"."exercise",
          "p"."weight",
-         "p"."date"
+         to_char(p.date, 'Mon DD, YYYY')
     from "prs" as "p"
     join "exerciseList" as "e" using ("exerciseId")
    where "exerciseId" = $1

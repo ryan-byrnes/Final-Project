@@ -1,5 +1,6 @@
 import React from 'react';
 import Search from '../components/search-bar';
+import moment from 'moment';
 
 export default class PrPage extends React.Component {
   constructor(props) {
@@ -129,7 +130,8 @@ class AddPrModal extends React.Component {
 
   submitPR(event) {
     event.preventDefault();
-    const { userId, exerciseId, reps, weight, date, nextExercise } = this.state;
+    const { userId, exerciseId, reps, weight, nextExercise } = this.state;
+    const formatDate = moment(this.state.date).format('LLL');
     fetch('/api/pr', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -138,7 +140,7 @@ class AddPrModal extends React.Component {
         exerciseId: exerciseId,
         reps: reps,
         weight: weight,
-        date: date
+        date: formatDate
       })
     })
       .then(res => res.json())

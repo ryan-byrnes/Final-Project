@@ -12,7 +12,6 @@ export default function Header() {
                 <Link className="color-white text-decoration-none" to="/">Training</Link>
                 <Link className="color-white text-decoration-none" to="/pr">PR's</Link>
                 <Link className="color-white text-decoration-none" to="/analytics">Analytics</Link>
-                <a className="color-white">Analytics</a>
               </div>
             </div>
           </div>

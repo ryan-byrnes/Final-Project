@@ -10,7 +10,8 @@ module.exports = {
   },
   entry: clientPath,
   output: {
-    path: serverPublicPath
+    path: serverPublicPath,
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -42,7 +43,8 @@ module.exports = {
     stats: 'minimal',
     proxy: {
       '/api': `http://localhost:${process.env.PORT}`
-    }
+    },
+    historyApiFallback: true
   },
   performance: {
     hints: false
