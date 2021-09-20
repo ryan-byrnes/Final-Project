@@ -7,6 +7,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import Analytics from './pages/analytics';
 
 export default class App extends React.Component {
   render() {
@@ -19,6 +20,9 @@ export default class App extends React.Component {
           </Route>
           <Route exact path="/pr">
             <PrPage />
+          </Route>
+          <Route exact path="/analytics">
+            <Analytics />
           </Route>
         </Switch>
       </Router>
