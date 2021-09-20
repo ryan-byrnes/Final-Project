@@ -28,6 +28,16 @@ export default class Analytics extends React.Component {
     }
   }
 
+  getGraphData() {
+    fetch(`/api/prData/${this.state.exerciseId}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          prData: data
+        });
+      });
+  }
+
   render() {
     return (
       <form>
@@ -39,6 +49,7 @@ export default class Analytics extends React.Component {
             );
           })}
         </select>
+        <button type="submit">Submit</button>
       </form>
     );
   }
