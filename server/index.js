@@ -85,13 +85,19 @@ app.get('/api/pr/:userId', (req, res, next) => {
     res.status(400).json({ error: 'userId must be a positive integer' });
   }
   const sql = `
-    select "e"."exercise",
-           "p"."reps",
-           "p"."weight",
-           "p"."prId"
-     from  "prs" as "p"
-     join "exerciseList" as "e" using ("exerciseId")
-     where "userId" = $1
+with cte as (
+  select "e"."exercise",
+         "p"."reps",
+         "p"."weight",
+         "p"."prId",
+         Row_number() over(partition by "e"."exercise"
+                                      order by "p"."weight" DESC) as rank
+      from "prs" as "p"
+      join "exerciseList" as "e" using ("exerciseId")
+      where "userId" = $1)
+  select *
+    from cte
+where rank = 1;
     `;
 
   const params = [id];

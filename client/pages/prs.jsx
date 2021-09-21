@@ -109,7 +109,7 @@ class AddPrModal extends React.Component {
   handleClose() {
     this.setState({
       isOpen: false,
-      selectedExercise: []
+      nextExercise: ''
     });
   }
 
@@ -130,8 +130,7 @@ class AddPrModal extends React.Component {
 
   submitPR(event) {
     event.preventDefault();
-    const { userId, exerciseId, reps, weight, nextExercise } = this.state;
-    const formatDate = moment(this.state.date).format('LLL');
+    const { userId, exerciseId, reps, weight, nextExercise, date } = this.state;
     fetch('/api/pr', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -140,12 +139,25 @@ class AddPrModal extends React.Component {
         exerciseId: exerciseId,
         reps: reps,
         weight: weight,
-        date: formatDate
+        date: date,
+        exercise: nextExercise
       })
     })
       .then(res => res.json())
       .then(data => {
         data.exercise = nextExercise;
+        for (let i = 0; i < this.props.prs.length; i++) {
+          if (this.props.prs[i].exercise === data.exercise) {
+            const array = [...this.props.prs.slice(0, i), ...this.props.prs.slice(i + 1)];
+            const updatedArray = array.concat(data);
+            this.props.updateNewPr(updatedArray);
+            this.setState({
+              isOpen: false,
+              nextExercise: ''
+            });
+            return;
+          }
+        }
         const updatedPrArray = this.state.prs.concat(data);
         this.props.updateNewPr(updatedPrArray);
         this.setState({
@@ -185,7 +197,7 @@ class AddPrModal extends React.Component {
               <div className="row">
                 <form onSubmit={this.submitPR}>
                   <div className="row">
-                    <h3 className="margin-bottom-5">{this.state.selectedExercise}</h3>
+                    <h3 className="margin-bottom-5">{this.state.nextExercise}</h3>
                   </div>
                   <div className="row justify-content-center">
                     <div className="column-half margin-right-10">
