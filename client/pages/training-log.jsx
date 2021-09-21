@@ -39,7 +39,6 @@ export default class TrainingLog extends React.Component {
   handleClose() {
     this.setState({
       isOpen: false,
-      addExercise: [],
       sets: [{ reps: '', weight: '' }]
     });
   }
@@ -63,7 +62,7 @@ export default class TrainingLog extends React.Component {
         this.setState({
           trainingSession: session,
           isOpen: false,
-          addExercise: []
+          sets: [{ reps: '', weight: '' }]
         });
       });
   }
