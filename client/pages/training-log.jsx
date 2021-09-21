@@ -113,7 +113,7 @@ export default class TrainingLog extends React.Component {
           <TrainingSession date={this.state.startDate} />
         </div>
         <div className="row justify-content-center margin-top-50">
-          <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Session</button>
+          <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Exercise</button>
         </div>
       </div>
     );

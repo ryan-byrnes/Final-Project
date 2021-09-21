@@ -32,6 +32,13 @@ export default class TrainingSession extends React.Component {
   }
 
   render() {
+    if (!this.trainingSession) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-gray font-style-italic">No Training Session Recorded</p>
+        </div>
+      );
+    }
     const session = this.state.trainingSession;
     return (
       session.map((exercise, index) => {

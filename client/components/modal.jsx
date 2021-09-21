@@ -73,15 +73,21 @@ export default class TrainingModal extends React.Component {
                       <h5>Weight (lbs)</h5>
                       <input className="input-width" type="text" name="weight" onChange={event => this.handleChange(index, event)}></input>
                       <div className="row justify-content-end margin-top-10">
-                        <div>
-                            <button type="button" onClick={() => this.props.addSet({ reps: '', weight: '' })}>Add Set</button>
+                        <div className="row">
+                            {
+                              index > 0 &&
+                              <div className="margin-right-10">
+                                <button className="remove-set-button font-weight-bold" type="button" onClick={() => this.props.removeSet(index)}>Remove Set</button>
+                              </div>
+                            }
+                            <button className="add-set-button font-weight-bold" type="button" onClick={() => this.props.addSet({ reps: '', weight: '' })}>Add Set</button>
                         </div>
-                          {
+                          {/* {
                             index > 0 &&
                               <div className="margin-left-10">
-                                <button type="button" onClick={() => this.props.removeSet(index)}>Remove Set</button>
+                                <button className="remove-set-button font-weight-bold" type="button" onClick={() => this.props.removeSet(index)}>Remove Set</button>
                               </div>
-                          }
+                          } */}
                       </div>
                     </div>
                   </div>

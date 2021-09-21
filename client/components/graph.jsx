@@ -21,7 +21,9 @@ export default class PrGraph extends React.Component {
     if (this.state.prData.length > 0) {
       return (
     <div>
-      <h3>{this.state.prData[0].exercise}</h3>
+      <div className="row justify-content-center">
+        <h2>{this.state.prData[0].exercise}</h2>
+      </div>
       <LineChart width={800} height={300} data={this.state.prData} margin={{ top: 5, bottom: 5 }}>
         <Line type="monotone" dataKey="weight" stroke="#2451B7" activeDot={{ r: 6 }} strokeWidth={ 2 } />
         <CartesianGrid opacity={0.3} vertical={false} stroke="#ccc" />

@@ -1,6 +1,5 @@
 import React from 'react';
 import Search from '../components/search-bar';
-import moment from 'moment';
 
 export default class PrPage extends React.Component {
   constructor(props) {
@@ -44,9 +43,7 @@ export default class PrPage extends React.Component {
     <div className="container">
       <div>
         <div className="row justify-content-center">
-          <div className="column-half border-bottom-black text-align-center">
-            <h2 className="font-weight-bold">Personal Records</h2>
-          </div>
+            <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
         </div>
         {
           this.state.prs.map(pr => (
@@ -215,7 +212,7 @@ class AddPrModal extends React.Component {
                 </form>
               </div>
               <div>
-                <button className="button-color-close button-width button-height position-absolute border-radius-5 add-pr-button-font" onClick={this.handleClose}>Close</button>
+                <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
               </div>
             </div>
           </div>
@@ -225,14 +222,14 @@ class AddPrModal extends React.Component {
     return (
       <div>
         <div className="row justify-content-center">
-          <button>+ Add PR</button>
+          <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font">+ Add PR</button>
         </div>
         <div className="modal">
           <div className="modal-content position-relative overflow-scroll">
             <h1>Add PR</h1>
             <Search exerciseSearch={this.exerciseSearch} selectedExercise={this.exerciseSelected} state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
             <div>
-              <button className="button-height button-width border-radius-5 button-color-close position-absolute add-pr-button-font" onClick={this.handleClose}>Close</button>
+              <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
             </div>
           </div>
         </div>

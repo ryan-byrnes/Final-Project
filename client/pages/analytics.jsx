@@ -39,23 +39,31 @@ export default class Analytics extends React.Component {
           prData: data
         });
       });
+    event.target.reset();
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.getGraphData}>
-          <select onChange={this.getExerciseId} name="prs">
-            <option value="">Choose an Exercise</option>
-            {this.state.exercises.map(exercise => {
-              return (
-                <option key={exercise.exerciseId}value={exercise.exercise}>{exercise.exercise}</option>
-              );
-            })}
-          </select>
-          <button type="submit">Submit</button>
-        </form>
-        <PrGraph prData={this.state.prData} />
+        <div className="row justify-content-center margin-top-10">
+          <h1 className="font-weight-bold border-bottom-black">PR Tracker</h1>
+        </div>
+        <div className="row justify-content-center margin-top-30">
+          <form onSubmit={this.getGraphData}>
+            <select className="font-size" onChange={this.getExerciseId} name="prs">
+              <option className="font-style-italic" value="">Choose an Exercise</option>
+              {this.state.exercises.map(exercise => {
+                return (
+                  <option key={exercise.exerciseId}value={exercise.exercise}>{exercise.exercise}</option>
+                );
+              })}
+            </select>
+            <button className="button-width button-height-37 border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit</button>
+          </form>
+        </div>
+        <div className="row justify-content-center margin-top-30">
+          <PrGraph prData={this.state.prData} />
+        </div>
       </div>
     );
   }
