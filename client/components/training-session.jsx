@@ -32,10 +32,17 @@ export default class TrainingSession extends React.Component {
   }
 
   render() {
-    const session = this.state.trainingSession;
-    return (
-      session.map((exercise, index) => {
-        return (
+    if (this.state.trainingSession.length < 1) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-gray font-style-italic">No Training Session Recorded</p>
+        </div>
+      );
+    } else {
+      const session = this.state.trainingSession;
+      return (
+        session.map((exercise, index) => {
+          return (
           <div className="row width-80 justify-content-center align-items-start border-bottom-lightgray training-log padding-top-10" key={exercise.exerciseId}>
               <div className="flex text-align-center">
                 <h4 className="margin-top-0 font-weight-bold">{index + 1}. {exercise.exercise}</h4>
@@ -55,8 +62,9 @@ export default class TrainingSession extends React.Component {
                 })}
               </div>
             </div>
-        );
-      })
-    );
+          );
+        })
+      );
+    }
   }
 }

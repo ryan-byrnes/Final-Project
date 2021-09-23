@@ -6,8 +6,11 @@ export default class PrPage extends React.Component {
     super(props);
     this.state = {
       prs: [],
-      userId: 1
+      userId: 1,
+      exerciseId: 1
     };
+    this.updateNewPr = this.updateNewPr.bind(this);
+    this.exerciseIdSelected = this.exerciseIdSelected.bind(this);
   }
 
   componentDidMount() {
@@ -16,11 +19,23 @@ export default class PrPage extends React.Component {
       .then(prs => this.setState({ prs }));
   }
 
+  updateNewPr(pr) {
+    this.setState({
+      prs: pr
+    });
+  }
+
+  exerciseIdSelected(id) {
+    this.setState({
+      exerciseId: id
+    });
+  }
+
   render() {
     if (!this.state.prs.length) {
       return (
         <div>
-          <AddPrModal userId={this.state.userId} prs={this.state.prs} />
+          <AddPrModal exerciseIdSelected={this.exerciseIdSelected} updateNewPr={this.updateNewPr} userId={this.state.userId} prs={this.state.prs} />
         </div>
       );
     }
@@ -28,9 +43,7 @@ export default class PrPage extends React.Component {
     <div className="container">
       <div>
         <div className="row justify-content-center">
-          <div className="column-half border-bottom-black text-align-center">
-            <h2 className="font-weight-bold">Personal Records</h2>
-          </div>
+            <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
         </div>
         {
           this.state.prs.map(pr => (
@@ -41,7 +54,7 @@ export default class PrPage extends React.Component {
         }
       </div>
       <div>
-        <AddPrModal userId={this.state.userId} prs={this.state.prs} />
+          <AddPrModal exerciseIdSelected={this.exerciseIdSelected} updateNewPr={this.updateNewPr} userId={this.state.userId} prs={this.state.prs} />
       </div>
     </div>
     );
@@ -53,11 +66,10 @@ class AddPrModal extends React.Component {
     super(props);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.onType = this.onType.bind(this);
-    this.onClick = this.onClick.bind(this);
     this.addExercise = this.addExercise.bind(this);
     this.submitPR = this.submitPR.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.exerciseSelected = this.exerciseSelected.bind(this);
     this.state = {
       isOpen: false,
       exercises: [],
@@ -65,12 +77,13 @@ class AddPrModal extends React.Component {
       filteredExercises: [],
       activeSuggestions: 0,
       showSuggestions: false,
-      userInput: '',
-      addExercise: [],
+      nextExercise: '',
+      selectedExercise: '',
       userId: this.props.userId,
       exerciseId: 1,
       reps: '',
-      weight: ''
+      weight: '',
+      date: new Date()
     };
   }
 
@@ -84,30 +97,37 @@ class AddPrModal extends React.Component {
     this.setState({ isOpen: true });
   }
 
+  exerciseSelected(exercise) {
+    this.setState({
+      selectedExercise: exercise
+    });
+  }
+
   handleClose() {
     this.setState({
       isOpen: false,
-      addExercise: []
+      nextExercise: ''
     });
   }
 
   addExercise() {
     event.preventDefault();
     for (let i = 0; i < this.state.exercises.length; i++) {
-      if (this.state.userInput === this.state.exercises[i].exercise) {
+      if (this.state.selectedExercise === this.state.exercises[i].exercise) {
         this.setState({
           exerciseId: this.state.exercises[i].exerciseId
         });
       }
     }
     this.setState({
-      addExercise: this.state.userInput,
-      userInput: ''
+      nextExercise: this.state.selectedExercise,
+      selectedExercise: ''
     });
   }
 
-  submitPR() {
-    const { userId, exerciseId, reps, weight } = this.state;
+  submitPR(event) {
+    event.preventDefault();
+    const { userId, exerciseId, reps, weight, nextExercise, date } = this.state;
     fetch('/api/pr', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -115,16 +135,32 @@ class AddPrModal extends React.Component {
         userId: userId,
         exerciseId: exerciseId,
         reps: reps,
-        weight: weight
+        weight: weight,
+        date: date,
+        exercise: nextExercise
       })
     })
       .then(res => res.json())
       .then(data => {
+        data.exercise = nextExercise;
+        for (let i = 0; i < this.props.prs.length; i++) {
+          if (this.props.prs[i].exercise === data.exercise) {
+            const array = [...this.props.prs.slice(0, i), ...this.props.prs.slice(i + 1)];
+            const updatedArray = array.concat(data);
+            this.props.updateNewPr(updatedArray);
+            this.setState({
+              isOpen: false,
+              nextExercise: ''
+            });
+            return;
+          }
+        }
         const updatedPrArray = this.state.prs.concat(data);
+        this.props.updateNewPr(updatedPrArray);
         this.setState({
           prs: updatedPrArray,
           isOpen: false,
-          addExercise: []
+          nextExercise: ''
         });
       });
   }
@@ -137,28 +173,6 @@ class AddPrModal extends React.Component {
     });
   }
 
-  onType(event) {
-    const userInput = event.currentTarget.value;
-    const filteredExercises = this.state.exercises.filter(
-      exercise => exercise.exercise.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
-    this.setState({
-      activeSuggestions: 0,
-      filteredExercises,
-      showSuggestions: true,
-      userInput: event.target.value
-    });
-  }
-
-  onClick(event) {
-    this.setState({
-      activeSuggestions: 0,
-      filteredExercises: [],
-      showSuggestions: false,
-      userInput: event.currentTarget.innerText
-    });
-  }
-
   render() {
     if (!this.state.isOpen) {
       return (
@@ -167,20 +181,20 @@ class AddPrModal extends React.Component {
         </div>
       );
     }
-    if (this.state.addExercise.length > 0) {
+    if (this.state.nextExercise.length > 0) {
       return (
         <div>
           <div className="row justify-content-center">
             <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font">+ Add PR</button>
           </div>
           <div className="modal">
-            <div className="modal-content position-relative">
+            <div className="modal-content position-relative overflow-scroll">
               <h1>Add PR</h1>
-              <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
+              <Search exerciseSearch={this.exerciseSearch} selectedExercise={this.exerciseSelected} state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
                 <form onSubmit={this.submitPR}>
                   <div className="row">
-                    <h3 className="margin-bottom-5">{this.state.addExercise}</h3>
+                    <h3 className="margin-bottom-5">{this.state.nextExercise}</h3>
                   </div>
                   <div className="row justify-content-center">
                     <div className="column-half margin-right-10">
@@ -198,7 +212,7 @@ class AddPrModal extends React.Component {
                 </form>
               </div>
               <div>
-                <button className="button-color-close button-width button-height position-absolute border-radius-5 add-pr-button-font" onClick={this.handleClose}>Close</button>
+                <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
               </div>
             </div>
           </div>
@@ -208,14 +222,14 @@ class AddPrModal extends React.Component {
     return (
       <div>
         <div className="row justify-content-center">
-          <button>+ Add PR</button>
+          <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font">+ Add PR</button>
         </div>
         <div className="modal">
-          <div className="modal-content position-relative">
+          <div className="modal-content position-relative overflow-scroll">
             <h1>Add PR</h1>
-            <Search state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
+            <Search exerciseSearch={this.exerciseSearch} selectedExercise={this.exerciseSelected} state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
             <div>
-              <button className="button-height button-width border-radius-5 button-color-close position-absolute add-pr-button-font" onClick={this.handleClose}>Close</button>
+              <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
             </div>
           </div>
         </div>

@@ -39,7 +39,6 @@ export default class TrainingLog extends React.Component {
   handleClose() {
     this.setState({
       isOpen: false,
-      addExercise: [],
       sets: [{ reps: '', weight: '' }]
     });
   }
@@ -63,7 +62,7 @@ export default class TrainingLog extends React.Component {
         this.setState({
           trainingSession: session,
           isOpen: false,
-          addExercise: []
+          sets: [{ reps: '', weight: '' }]
         });
       });
   }
@@ -98,7 +97,20 @@ export default class TrainingLog extends React.Component {
   render() {
     if (this.state.isOpen) {
       return (
-        <TrainingModal getExerciseId={this.getExerciseId} setInfo={this.repsWeightInput} sets={this.state.sets} addSet={this.addSet} removeSet={this.removeSet} exerciseId={this.state.exerciseId} newSet={this.state.sets} handleClose={this.handleClose} isOpen={this.state.isOpen} date={this.state.startDate} submitExercise={this.submitExercise} />
+        <div>
+          <TrainingModal getExerciseId={this.getExerciseId} setInfo={this.repsWeightInput} sets={this.state.sets} addSet={this.addSet} removeSet={this.removeSet} exerciseId={this.state.exerciseId} newSet={this.state.sets} handleClose={this.handleClose} isOpen={this.state.isOpen} date={this.state.startDate} submitExercise={this.submitExercise} />
+          <div className="container">
+            <div className="row margin-top-10 justify-content-center width-100">
+              <h1 className="border-bottom-black">Training Log</h1>
+            </div>
+            <div className="row margin-top-10 flex-direction-column align-items-center width-100">
+              <TrainingSession date={this.state.startDate} />
+            </div>
+            <div className="row justify-content-center margin-top-50">
+              <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Exercise</button>
+            </div>
+          </div>
+        </div>
       );
     }
     return (
@@ -113,7 +125,7 @@ export default class TrainingLog extends React.Component {
           <TrainingSession date={this.state.startDate} />
         </div>
         <div className="row justify-content-center margin-top-50">
-          <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Session</button>
+          <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Exercise</button>
         </div>
       </div>
     );

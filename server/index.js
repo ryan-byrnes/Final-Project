@@ -53,19 +53,51 @@ app.get('/api/training/:date', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/prData/:exerciseId', (req, res, next) => {
+  const exerciseId = parseInt(req.params.exerciseId, 10);
+  const sql = `
+  select "e"."exercise",
+         "p"."weight",
+         to_char(p.date, 'Mon DD, YYYY')
+    from "prs" as "p"
+    join "exerciseList" as "e" using ("exerciseId")
+   where "exerciseId" = $1
+   order by "date"
+  `;
+
+  const params = [exerciseId];
+
+  db.query(sql, params)
+    .then(result => {
+      const pr = result.rows[0];
+      if (!pr) {
+        res.status(404).json({ error: 'no prs' });
+      } else {
+        res.status(200).json(result.rows);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/pr/:userId', (req, res, next) => {
   const id = parseInt(req.params.userId, 10);
   if (!Number.isInteger(id) || id <= 0) {
     res.status(400).json({ error: 'userId must be a positive integer' });
   }
   const sql = `
-    select "e"."exercise",
-           "p"."reps",
-           "p"."weight",
-           "p"."prId"
-     from  "prs" as "p"
-     join "exerciseList" as "e" using ("exerciseId")
-     where "userId" = $1
+with cte as (
+  select "e"."exercise",
+         "p"."reps",
+         "p"."weight",
+         "p"."prId",
+         Row_number() over(partition by "e"."exercise"
+                                      order by "p"."weight" DESC) as rank
+      from "prs" as "p"
+      join "exerciseList" as "e" using ("exerciseId")
+      where "userId" = $1)
+  select *
+    from cte
+where rank = 1;
     `;
 
   const params = [id];
@@ -84,18 +116,18 @@ app.get('/api/pr/:userId', (req, res, next) => {
 });
 
 app.post('/api/pr', (req, res, next) => {
-  const { userId, exerciseId, reps, weight } = req.body;
+  const { userId, exerciseId, reps, weight, date } = req.body;
 
-  if (!userId || !exerciseId || !reps || !weight) {
-    throw new ClientError(400, 'Exercise, reps, and weight are required fields.');
+  if (!userId || !exerciseId || !reps || !weight || !date) {
+    throw new ClientError(400, 'Exercise, reps, weight, and date are required fields.');
   }
   const sql = `
-  insert into "prs" ("userId", "exerciseId", "reps", "weight")
-  values ($1, $2, $3, $4)
+  insert into "prs" ("userId", "exerciseId", "reps", "weight", "date")
+  values ($1, $2, $3, $4, $5)
   returning *
   `;
 
-  const params = [userId, exerciseId, reps, weight];
+  const params = [userId, exerciseId, reps, weight, date];
 
   db.query(sql, params)
     .then(result => {

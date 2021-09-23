@@ -13,7 +13,7 @@ export default class Calendar extends React.Component {
   render() {
     return (
     <div className="row justify-content-center">
-      <DatePicker selected={ this.props.date } onChange={ this.props.handleChange } name="startDate" dateFormat="MM/dd/yyyy" />
+      <DatePicker className="font-weight-bold date-input font-size-20" selected={ this.props.date } onChange={ this.props.handleChange } name="startDate" dateFormat="MM/dd/yyyy" />
     </div>
 
     );
