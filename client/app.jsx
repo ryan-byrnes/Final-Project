@@ -8,7 +8,6 @@ import {
   Route
 } from 'react-router-dom';
 import Analytics from './pages/analytics';
-import Footer from './components/footer';
 
 export default class App extends React.Component {
   render() {
