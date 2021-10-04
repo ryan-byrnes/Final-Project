@@ -442,6 +442,11 @@ a:hover {
     font-size: 10px;
   }
 
+  .add-pr-button-font {
+    font-weight: 800;
+    font-size: 12px;
+  }
+
   .suggestions {
     border: 1px solid #999;
     border-top-width: 0;
