@@ -50,7 +50,7 @@ export default class Analytics extends React.Component {
         </div>
         <div className="row justify-content-center margin-top-30">
           <form onSubmit={this.getGraphData}>
-            <select className="font-size" onChange={this.getExerciseId} name="prs">
+            <select className="font-size graph-input" onChange={this.getExerciseId} name="prs">
               <option className="font-style-italic" value="">Choose an Exercise</option>
               {this.state.exercises.map(exercise => {
                 return (
@@ -58,7 +58,7 @@ export default class Analytics extends React.Component {
                 );
               })}
             </select>
-            <button className="button-width button-height-37 border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit</button>
+            <button className="graph-button button-width button-height-37 border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit</button>
           </form>
         </div>
         <div className="row justify-content-center margin-top-30">
