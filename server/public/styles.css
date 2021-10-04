@@ -432,6 +432,8 @@ a:hover {
 
   .graph-button {
     width: 28%;
+    font-weight: 800;
+    font-size: 14px;
   }
 
   .graph-input {
@@ -445,6 +447,10 @@ a:hover {
   .add-pr-button-font {
     font-weight: 800;
     font-size: 15px;
+  }
+
+  .button-height-37 {
+    height: 34px;
   }
 
   .suggestions {
