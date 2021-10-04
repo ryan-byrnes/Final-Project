@@ -58,7 +58,7 @@ export default class Analytics extends React.Component {
                 );
               })}
             </select>
-            <button className="graph-button button-width button-height-37 border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit</button>
+            <button className="graph-button button-width button-height-37 border-radius-5 button-color-primary" type="submit">Submit</button>
           </form>
         </div>
         <div className="row justify-content-center margin-top-30">
