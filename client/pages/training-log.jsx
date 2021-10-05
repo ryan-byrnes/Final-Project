@@ -50,7 +50,7 @@ export default class TrainingLog extends React.Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        date: startDate,
+        date: startDate.toLocaleString(),
         exerciseId: exerciseId,
         sets: JSON.stringify(sets),
         userId: userId
