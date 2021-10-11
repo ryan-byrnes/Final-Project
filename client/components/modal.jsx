@@ -10,7 +10,8 @@ export default class TrainingModal extends React.Component {
       nextExercise: '',
       exerciseId: this.props.exerciseId,
       isOpen: this.props.isOpen,
-      startDate: this.props.date
+      startDate: this.props.date,
+      isLoading: true
     };
     this.addExercise = this.addExercise.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,7 +21,10 @@ export default class TrainingModal extends React.Component {
   componentDidMount() {
     fetch('/api/exercise-list')
       .then(res => res.json())
-      .then(exercises => this.setState({ exercises }));
+      .then(exercises => this.setState({
+        exercises,
+        isLoading: false
+      }));
   }
 
   addExercise() {
@@ -52,6 +56,24 @@ export default class TrainingModal extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     if (this.state.nextExercise.length > 0) {
       return (
           <div className="modal">
@@ -82,12 +104,6 @@ export default class TrainingModal extends React.Component {
                             }
                             <button className="add-set-button font-weight-bold" type="button" onClick={() => this.props.addSet({ reps: '', weight: '' })}>Add Set</button>
                         </div>
-                          {/* {
-                            index > 0 &&
-                              <div className="margin-left-10">
-                                <button className="remove-set-button font-weight-bold" type="button" onClick={() => this.props.removeSet(index)}>Remove Set</button>
-                              </div>
-                          } */}
                       </div>
                     </div>
                   </div>

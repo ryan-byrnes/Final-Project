@@ -7,7 +7,10 @@ export default class Analytics extends React.Component {
     this.state = {
       exercises: [],
       prData: [],
-      exerciseId: 1
+      exerciseId: 1,
+      showGraph: false,
+      isLoading: true,
+      failed: false
     };
     this.getExerciseId = this.getExerciseId.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
@@ -16,7 +19,14 @@ export default class Analytics extends React.Component {
   componentDidMount() {
     fetch('/api/exercise-list')
       .then(res => res.json())
-      .then(exercises => this.setState({ exercises }));
+      .then(exercises => this.setState({
+        exercises,
+        isLoading: false
+      }))
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
+      });
   }
 
   getExerciseId(event) {
@@ -36,13 +46,39 @@ export default class Analytics extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          prData: data
+          prData: data,
+          showGraph: true
         });
       });
     event.target.reset();
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="row justify-content-center margin-top-10">
@@ -62,7 +98,7 @@ export default class Analytics extends React.Component {
           </form>
         </div>
         <div className="row justify-content-center margin-top-30">
-          <PrGraph prData={this.state.prData} />
+          <PrGraph showGraph={this.state.showGraph} prData={this.state.prData} />
         </div>
       </div>
     );

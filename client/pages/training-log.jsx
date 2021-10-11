@@ -12,7 +12,9 @@ export default class TrainingLog extends React.Component {
       startDate: new Date(),
       trainingSession: [],
       sets: [{ reps: '', weight: '' }],
-      exerciseId: 1
+      exerciseId: 1,
+      isLoading: false,
+      failed: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -56,14 +58,24 @@ export default class TrainingLog extends React.Component {
         userId: userId
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          isLoading: true
+        });
+        res.json();
+      })
       .then(data => {
         const session = this.state.trainingSession.concat(data);
         this.setState({
           trainingSession: session,
           isOpen: false,
+          isLoading: false,
           sets: [{ reps: '', weight: '' }]
         });
+      })
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
       });
   }
 
@@ -95,6 +107,31 @@ export default class TrainingLog extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     if (this.state.isOpen) {
       return (
         <div>

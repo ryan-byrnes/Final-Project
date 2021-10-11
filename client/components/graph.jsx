@@ -5,14 +5,16 @@ export default class PrGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prData: this.props.prData
+      prData: this.props.prData,
+      showGraph: this.props.showGraph
     };
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.prData !== this.state.prData) {
       this.setState({
-        prData: this.props.prData
+        prData: this.props.prData,
+        showGraph: this.props.showGraph
       });
     }
   }
@@ -35,11 +37,16 @@ export default class PrGraph extends React.Component {
       </ResponsiveContainer>
     </div>
       );
-    }
-    return (
+    } else if (this.state.showGraph) {
+      return (
       <div>
-
+        <p className="font-size-20 color-gray font-style-italic">No Personal Records recorded for this exercise</p>
       </div>
-    );
+      );
+    } else {
+      return (
+        <p className="font-size-20 color-gray font-style-italic">Select an Exercise to Begin</p>
+      );
+    }
   }
 }

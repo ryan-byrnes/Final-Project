@@ -6,15 +6,26 @@ export default class TrainingSession extends React.Component {
     super(props);
     this.state = {
       trainingSession: [],
-      startDate: this.props.date
+      startDate: this.props.date,
+      isLoading: true,
+      failed: false
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const sessionDate = moment(this.state.startDate).format('LL');
-    const response = await fetch(`/api/training/${sessionDate}`);
-    const trainingSession = await response.json();
-    this.setState({ trainingSession });
+    fetch(`/api/training/${sessionDate}`)
+      .then(res => res.json())
+      .then(trainingSession => {
+        this.setState({
+          trainingSession,
+          isLoading: false
+        });
+      })
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -32,6 +43,31 @@ export default class TrainingSession extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     if (this.state.trainingSession.length < 1) {
       return (
         <div className="row justify-content-center">

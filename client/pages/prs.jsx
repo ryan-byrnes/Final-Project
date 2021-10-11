@@ -7,7 +7,9 @@ export default class PrPage extends React.Component {
     this.state = {
       prs: [],
       userId: 1,
-      exerciseId: 1
+      exerciseId: 1,
+      isLoading: true,
+      failed: false
     };
     this.updateNewPr = this.updateNewPr.bind(this);
     this.exerciseIdSelected = this.exerciseIdSelected.bind(this);
@@ -16,7 +18,14 @@ export default class PrPage extends React.Component {
   componentDidMount() {
     fetch(`/api/pr/${this.state.userId}`)
       .then(res => res.json())
-      .then(prs => this.setState({ prs }));
+      .then(prs => this.setState({
+        prs,
+        isLoading: false
+      }))
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
+      });
   }
 
   updateNewPr(pr) {
@@ -32,6 +41,31 @@ export default class PrPage extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     if (!this.state.prs.length) {
       return (
         <div>
