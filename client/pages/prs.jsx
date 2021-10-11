@@ -7,7 +7,8 @@ export default class PrPage extends React.Component {
     this.state = {
       prs: [],
       userId: 1,
-      exerciseId: 1
+      exerciseId: 1,
+      isLoading: true
     };
     this.updateNewPr = this.updateNewPr.bind(this);
     this.exerciseIdSelected = this.exerciseIdSelected.bind(this);
@@ -16,7 +17,10 @@ export default class PrPage extends React.Component {
   componentDidMount() {
     fetch(`/api/pr/${this.state.userId}`)
       .then(res => res.json())
-      .then(prs => this.setState({ prs }));
+      .then(prs => this.setState({
+        prs,
+        isLoading: false
+      }));
   }
 
   updateNewPr(pr) {
@@ -32,6 +36,24 @@ export default class PrPage extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     if (!this.state.prs.length) {
       return (
         <div>

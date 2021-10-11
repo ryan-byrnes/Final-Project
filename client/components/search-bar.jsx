@@ -8,7 +8,8 @@ export default class Search extends React.Component {
       exercises: [],
       filteredExercises: [],
       showSuggestions: false,
-      exerciseSearch: ''
+      exerciseSearch: '',
+      isLoading: true
     };
     this.onType = this.onType.bind(this);
     this.onSelection = this.onSelection.bind(this);
@@ -17,7 +18,10 @@ export default class Search extends React.Component {
   componentDidMount() {
     fetch('/api/exercise-list')
       .then(res => res.json())
-      .then(exercises => this.setState({ exercises }));
+      .then(exercises => this.setState({
+        exercises,
+        isLoading: false
+      }));
   }
 
   onSelection() {
@@ -42,6 +46,24 @@ export default class Search extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     const { showSuggestions, filteredExercises } = this.state;
     const value = this.state.exerciseSearch;
     let listSuggestions;

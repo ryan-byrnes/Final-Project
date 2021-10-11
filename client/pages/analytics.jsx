@@ -8,7 +8,8 @@ export default class Analytics extends React.Component {
       exercises: [],
       prData: [],
       exerciseId: 1,
-      showGraph: false
+      showGraph: false,
+      isLoading: true
     };
     this.getExerciseId = this.getExerciseId.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
@@ -17,7 +18,10 @@ export default class Analytics extends React.Component {
   componentDidMount() {
     fetch('/api/exercise-list')
       .then(res => res.json())
-      .then(exercises => this.setState({ exercises }));
+      .then(exercises => this.setState({
+        exercises,
+        isLoading: false
+      }));
   }
 
   getExerciseId(event) {
@@ -45,6 +49,24 @@ export default class Analytics extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="row justify-content-center margin-top-10">
