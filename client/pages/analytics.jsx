@@ -7,7 +7,8 @@ export default class Analytics extends React.Component {
     this.state = {
       exercises: [],
       prData: [],
-      exerciseId: 1
+      exerciseId: 1,
+      showGraph: false
     };
     this.getExerciseId = this.getExerciseId.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
@@ -36,7 +37,8 @@ export default class Analytics extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          prData: data
+          prData: data,
+          showGraph: true
         });
       });
     event.target.reset();
@@ -62,7 +64,7 @@ export default class Analytics extends React.Component {
           </form>
         </div>
         <div className="row justify-content-center margin-top-30">
-          <PrGraph prData={this.state.prData} />
+          <PrGraph showGraph={this.state.showGraph} prData={this.state.prData} />
         </div>
       </div>
     );

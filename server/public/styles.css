@@ -20,6 +20,10 @@ select {
   border-radius: 5px;
 }
 
+select:hover {
+  cursor: pointer;
+}
+
 button {
   border: none;
 }
@@ -41,6 +45,10 @@ a:hover {
 
 .date-input {
   width: 150px;
+}
+
+.date-input:hover {
+  cursor: pointer;
 }
 
 .add-set-button {
