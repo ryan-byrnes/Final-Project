@@ -12,7 +12,8 @@ export default class TrainingLog extends React.Component {
       startDate: new Date(),
       trainingSession: [],
       sets: [{ reps: '', weight: '' }],
-      exerciseId: 1
+      exerciseId: 1,
+      isLoading: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -56,12 +57,18 @@ export default class TrainingLog extends React.Component {
         userId: userId
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          isLoading: true
+        });
+        res.json();
+      })
       .then(data => {
         const session = this.state.trainingSession.concat(data);
         this.setState({
           trainingSession: session,
           isOpen: false,
+          isLoading: false,
           sets: [{ reps: '', weight: '' }]
         });
       });
@@ -95,6 +102,24 @@ export default class TrainingLog extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className="lds-spinner spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      );
+    }
     if (this.state.isOpen) {
       return (
         <div>
