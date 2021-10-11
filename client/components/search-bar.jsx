@@ -9,7 +9,8 @@ export default class Search extends React.Component {
       filteredExercises: [],
       showSuggestions: false,
       exerciseSearch: '',
-      isLoading: true
+      isLoading: true,
+      failed: false
     };
     this.onType = this.onType.bind(this);
     this.onSelection = this.onSelection.bind(this);
@@ -21,7 +22,11 @@ export default class Search extends React.Component {
       .then(exercises => this.setState({
         exercises,
         isLoading: false
-      }));
+      }))
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
+      });
   }
 
   onSelection() {
@@ -46,6 +51,13 @@ export default class Search extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
     if (this.state.isLoading) {
       return (
         <div className="lds-spinner spinner">

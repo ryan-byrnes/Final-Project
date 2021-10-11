@@ -9,7 +9,8 @@ export default class Analytics extends React.Component {
       prData: [],
       exerciseId: 1,
       showGraph: false,
-      isLoading: true
+      isLoading: true,
+      failed: false
     };
     this.getExerciseId = this.getExerciseId.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
@@ -21,7 +22,11 @@ export default class Analytics extends React.Component {
       .then(exercises => this.setState({
         exercises,
         isLoading: false
-      }));
+      }))
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
+      });
   }
 
   getExerciseId(event) {
@@ -49,6 +54,13 @@ export default class Analytics extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
     if (this.state.isLoading) {
       return (
         <div className="lds-spinner spinner">

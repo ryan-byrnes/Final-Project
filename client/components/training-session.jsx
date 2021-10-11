@@ -7,7 +7,8 @@ export default class TrainingSession extends React.Component {
     this.state = {
       trainingSession: [],
       startDate: this.props.date,
-      isLoading: true
+      isLoading: true,
+      failed: false
     };
   }
 
@@ -20,6 +21,10 @@ export default class TrainingSession extends React.Component {
           trainingSession,
           isLoading: false
         });
+      })
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
       });
   }
 
@@ -38,6 +43,13 @@ export default class TrainingSession extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
     if (this.state.isLoading) {
       return (
         <div className="lds-spinner spinner">

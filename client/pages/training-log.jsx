@@ -13,7 +13,8 @@ export default class TrainingLog extends React.Component {
       trainingSession: [],
       sets: [{ reps: '', weight: '' }],
       exerciseId: 1,
-      isLoading: false
+      isLoading: false,
+      failed: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -71,6 +72,10 @@ export default class TrainingLog extends React.Component {
           isLoading: false,
           sets: [{ reps: '', weight: '' }]
         });
+      })
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
       });
   }
 
@@ -102,6 +107,13 @@ export default class TrainingLog extends React.Component {
   }
 
   render() {
+    if (this.state.failed) {
+      return (
+        <div className="row justify-content-center">
+          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+        </div>
+      );
+    }
     if (this.state.isLoading) {
       return (
         <div className="lds-spinner spinner">
