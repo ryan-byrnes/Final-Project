@@ -69,6 +69,12 @@ export default class PrPage extends React.Component {
     if (!this.state.prs.length) {
       return (
         <div>
+          <div className="row justify-content-center">
+            <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
+          </div>
+          <div className="row justify-content-center margin-top-30">
+            <p className="font-size-20 color-gray font-style-italic">No Personal Records have been recorded.</p>
+          </div>
           <AddPrModal exerciseIdSelected={this.exerciseIdSelected} updateNewPr={this.updateNewPr} userId={this.state.userId} prs={this.state.prs} />
         </div>
       );
