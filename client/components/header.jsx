@@ -7,11 +7,11 @@ export default function Header() {
       <nav>
         <div className="container background-color-gray">
           <div className="row">
-            <div className="flex-basis-20">
-              <div className="row justify-content-space-between align-items-end header-height margin-left-10">
+            <div>
+              <div className="row justify-content-space-between align-items-end header-height margin-left-rem">
                 <Link className="color-white text-decoration-none font-weight-bold font-size-20 margin-bottom-5" to="/">Training</Link>
-                <Link className="color-white text-decoration-none font-weight-bold font-size-20 margin-bottom-5" to="/pr">PR's</Link>
-                <Link className="color-white text-decoration-none font-weight-bold font-size-20 margin-bottom-5" to="/analytics">Analytics</Link>
+                <Link className="color-white text-decoration-none font-weight-bold font-size-20 margin-bottom-5 margin-left-rem" to="/pr">PR&apos;s</Link>
+                <Link className="color-white text-decoration-none font-weight-bold font-size-20 margin-bottom-5 margin-left-rem" to="/analytics">Analytics</Link>
               </div>
             </div>
           </div>

@@ -72,6 +72,10 @@ a:hover {
   justify-content: space-between;
 }
 
+.margin-left-rem {
+  margin-left: 1.5rem;
+}
+
 .flex-basis-20 {
   flex-basis: 25%;
 }
