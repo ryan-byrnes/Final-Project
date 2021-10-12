@@ -87,11 +87,11 @@ export default class TrainingModal extends React.Component {
                   </div>
                   {this.props.sets.map((element, index) => (
                   <div className="row justify-content-center align-items-flex-end" key={index}>
-                    <div className="column-third margin-right-10">
+                    <div className="flex-basis-40 margin-right-10">
                       <h5>Number of Reps (RM)</h5>
                       <input className="input-width" type="text" name="reps" onChange={event => this.handleChange(index, event)}></input>
                     </div>
-                    <div className="column-third">
+                    <div className="flex-basis-40">
                       <h5>Weight (lbs)</h5>
                       <input className="input-width" type="text" name="weight" onChange={event => this.handleChange(index, event)}></input>
                       <div className="row justify-content-end margin-top-10">

@@ -108,7 +108,7 @@ export default class Search extends React.Component {
     return (
       <form onSubmit={this.props.addExercise}>
         <input type="text" onChange={this.onType} value={value} />
-        <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font height" type="submit">Add</button>
+        <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font height-34" type="submit">Add</button>
         {listSuggestions}
       </form>
     );
