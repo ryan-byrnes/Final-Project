@@ -105,12 +105,7 @@ where rank = 1;
 
   db.query(sql, params)
     .then(result => {
-      const pr = result.rows[0];
-      if (!pr) {
-        res.status(404).json({ error: 'no prs' });
-      } else {
-        res.status(200).json(result.rows);
-      }
+      res.status(200).json(result.rows);
     })
     .catch(err => next(err));
 
