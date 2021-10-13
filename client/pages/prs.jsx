@@ -80,8 +80,8 @@ export default class PrPage extends React.Component {
       );
     }
     return (
-    <div className="container">
-      <div>
+    <div className="container row align-items-center flex-direction-column width-100">
+      <div className="">
         <div className="row justify-content-center">
             <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
         </div>
@@ -281,15 +281,15 @@ class AddPrModal extends React.Component {
 function Pr(props) {
   const { exercise, reps, weight } = props.pr;
   return (
-    <div className="row justify-content-center container-list">
-      <div className="column-15 border-bottom-lightgray padding-left-10">
-        <h3 className="font-weight-bold">{ exercise }</h3>
+    <div className="row justify-content-center container-list width-100 border-bottom-lightgray">
+      <div className="padding-right-20 margin-left-2rem">
+        <h3 className="font-weight-bold font-size-10">{ exercise }</h3>
       </div>
-      <div className="flex-basis border-bottom-lightgray">
-        <h3 className="font-weight-bold">{ reps } RM:</h3>
+      <div className="margin-left-rem">
+        <h3 className="font-weight-bold font-size-10">{ reps } RM:</h3>
       </div>
-      <div className="flex-basis border-bottom-lightgray">
-        <h3>{weight} lbs</h3>
+      <div className="margin-left-rem margin-right-rem">
+        <h3 className="font-size-10">{weight} lbs</h3>
       </div>
     </div>
   );
