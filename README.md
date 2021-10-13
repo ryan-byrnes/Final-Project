@@ -1,4 +1,4 @@
-# Hangouts
+# Peak Performance Tracker
 
 This is a full stack web application for athletes who want to organize and track their performance training.
 
