@@ -79,19 +79,19 @@ export default class TrainingSession extends React.Component {
       return (
         session.map((exercise, index) => {
           return (
-          <div className="row width-80 justify-content-center align-items-start border-bottom-lightgray training-log padding-top-10" key={exercise.exerciseId}>
-              <div className="flex-basis-40 text-align-center">
-                <h4 className="margin-top-0 font-weight-bold font-size-10">{index + 1}. {exercise.exercise}</h4>
+          <div className="row justify-content-center align-items-start border-bottom-lightgray training-log padding-top-10" key={exercise.exerciseId}>
+              <div className="margin-left-2rem text-align-center">
+                <h4 className="margin-top-0 font-weight-bold font-size-10 padding-right-20">{index + 1}. {exercise.exercise}</h4>
               </div>
-              <div className="flex-basis-40">
+              <div className="">
                 {exercise.sets.map((set, index) => {
                   return (
                     <div className="row width-100 justify-content-center" key={index}>
-                      <div className="flex-basis-40">
-                        <h5 className="margin-top-0 font-size-10">{set.reps} reps</h5>
+                      <div className="margin-left-rem">
+                        <h5 className="margin-top-0 font-size-10 margin-left-rem">{set.reps} reps</h5>
                       </div>
-                      <div className="flex-basis-40">
-                        <h5 className="margin-top-0 font-size-10">{set.weight} lbs.</h5>
+                      <div className="margin-right-rem margin-left-rem">
+                        <h5 className="margin-top-0 font-size-10 margin-left-rem">{set.weight} lbs.</h5>
                       </div>
                     </div>
                   );
