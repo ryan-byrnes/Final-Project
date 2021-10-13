@@ -2,9 +2,9 @@
 
 This is a full stack web application for athletes who want to organize and track their performance training.
 
-This is a full-stack application that utilizes HTML, CSS, JavaScript, React.js in the front end and Node.js, Express.js, and postgresql in the back end.
+This is a full-stack application that utilizes HTML, CSS, JavaScript, React.js in the front end and Node.js, Express.js, and postgreSQL in the back end.
 
-I built this project so I would have an application that I send to my friends, family, and training clients that would allow them to better organize and track their training sessions over time.  I also wanted to have an application I could use to track and organize my own training.  In addition to being able to track and organize training, I am currently working on stretch features that will provide users with training programs if they do not have their own.
+I built this project so I would have an application that I could send to my friends, family, and training clients that would allow them to better organize and track their training sessions over time.  I also wanted to have an application I could use to track and organize my own training.  In addition to being able to track and organize training, I am currently working on stretch features that will provide users with training programs if they do not have their own.
 
 ## Live Deployment Link
 
