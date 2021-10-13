@@ -57,7 +57,7 @@ a:hover {
 }
 
 .font-size-16 {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .flex-direction-column {
@@ -81,7 +81,7 @@ a:hover {
 }
 
 .font-size-20 {
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
 .background-color-gray {
@@ -479,7 +479,11 @@ a:hover {
   }
 
   .font-size-10 {
-    font-size: 15px;
+    font-size: 0.6rem;
+  }
+
+  .font-size-16 {
+    font-size: 0.57rem;
   }
 
   .flex-basis-40 {
@@ -509,11 +513,13 @@ a:hover {
   .graph-button {
     width: 28%;
     font-weight: 800;
-    font-size: 14px;
+    font-size: 0.6rem;
   }
 
   .graph-input {
-    width: 71%;
+    width: 72%;
+    padding-left: 2px;
+    display: inline-block;
   }
 
   .button-font-size {
@@ -526,7 +532,8 @@ a:hover {
   }
 
   .button-height-37 {
-    height: 34px;
+    display: inline-block;
+    height: 30px;
   }
 
   .suggestions {
