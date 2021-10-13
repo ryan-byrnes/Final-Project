@@ -29,8 +29,11 @@ HTML, CSS, JavaScript, React.js, Node.js, Express.js, Postgresql, Babel, Webpack
 5. User can receive lifting technique critiques
 
 ## Preview
+
 https://user-images.githubusercontent.com/20606439/137221190-277c1270-00b9-424d-be49-ab474dacf9b7.mov
+
 https://user-images.githubusercontent.com/20606439/137221234-58b1af42-949e-4fa9-8585-86270aaf3c85.mov
+
 https://user-images.githubusercontent.com/20606439/137221266-33dd2190-5915-4372-a456-2dcd65758ab4.mov
 
 ## Requirements
