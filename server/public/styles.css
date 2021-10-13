@@ -72,16 +72,16 @@ a:hover {
   justify-content: space-between;
 }
 
-.margin-left-rem {
+.nav-spacing {
   margin-left: 1.5rem;
 }
 
-.margin-right-rem {
-  margin-right: 3rem;
+.margin-left-rem {
+  margin-left: 4rem;
 }
 
-.margin-left-2rem {
-  margin-left: 3rem;
+.margin-right-rem {
+  margin-right: 4rem;
 }
 
 .font-size-20 {
@@ -132,6 +132,10 @@ a:hover {
 
 .justify-content-end {
   justify-content: flex-end;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
 }
 
 .prs:nth-child(2n) {
@@ -198,6 +202,10 @@ a:hover {
 }
 
 .width-80 {
+  width: 40%;
+}
+
+.pr-width {
   width: 40%;
 }
 
@@ -438,6 +446,64 @@ a:hover {
   left: 45%;
 }
 
+@media only screen and (max-width: 1101px) {
+  .pr-width {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 979px) {
+  .pr-width {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 881px) {
+  .pr-width {
+    width: 55%;
+  }
+}
+
+@media only screen and (max-width: 801px) {
+  .pr-width {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 734px) {
+  .pr-width {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 678px) {
+  .pr-width {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 629px) {
+  .pr-width {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 587px) {
+  .pr-width {
+    width: 80%;
+  }
+
+  .flex-basis-40 {
+    flex-basis: 60%;
+  }
+}
+
+@media only screen and (max-width: 551px) {
+  .font-size-10 {
+    font-size: 0.98rem;
+  }
+}
+
 @media only screen and (max-width: 730px) {
   .flex-basis-40 {
     flex-basis: 65%;
@@ -464,6 +530,160 @@ a:hover {
     padding: 0.5rem;
     width: 250px;
     border-radius: 5px;
+  }
+
+  body {
+    font-size: 0.8rem;
+  }
+
+  .font-size-10 {
+    font-size: 0.6rem;
+  }
+
+  .font-size-16 {
+    font-size: 0.57rem;
+  }
+
+  .flex-basis-40 {
+    flex-basis: 75%;
+  }
+
+  .column-half {
+    flex-basis: 70%;
+  }
+
+  .width-80 {
+    width: 75%;
+  }
+
+  .graph-button {
+    width: 28%;
+    font-weight: 800;
+    font-size: 0.6rem;
+  }
+
+  .graph-input {
+    width: 72%;
+    padding-left: 2px;
+    display: inline-block;
+  }
+
+  .button-font-size {
+    font-size: 10px;
+  }
+
+  .add-pr-button-font {
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  .button-height-37 {
+    display: inline-block;
+    height: 30px;
+  }
+
+  .font-size-20 {
+    font-size: 0.8rem;
+  }
+
+  .suggestions {
+    border: 1px solid #999;
+    border-top-width: 0;
+    list-style: none;
+    margin-top: 0;
+    max-height: 143px;
+    overflow-y: auto;
+    padding-left: 0;
+    width: calc(250px + 1rem);
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  input {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    width: 250px;
+    border-radius: 5px;
+  }
+
+  body {
+    font-size: 0.8rem;
+  }
+
+  .font-size-10 {
+    font-size: 0.6rem;
+  }
+
+  .font-size-16 {
+    font-size: 0.57rem;
+  }
+
+  .flex-basis-40 {
+    flex-basis: 75%;
+  }
+
+  .column-half {
+    flex-basis: 70%;
+  }
+
+  .width-80 {
+    width: 75%;
+  }
+
+  .graph-button {
+    width: 28%;
+    font-weight: 800;
+    font-size: 0.6rem;
+  }
+
+  .graph-input {
+    width: 72%;
+    padding-left: 2px;
+    display: inline-block;
+  }
+
+  .button-font-size {
+    font-size: 10px;
+  }
+
+  .add-pr-button-font {
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  .button-height-37 {
+    display: inline-block;
+    height: 30px;
+  }
+
+  .suggestions {
+    border: 1px solid #999;
+    border-top-width: 0;
+    list-style: none;
+    margin-top: 0;
+    max-height: 143px;
+    overflow-y: auto;
+    padding-left: 0;
+    width: calc(250px + 1rem);
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+  }
+}
+
+@media only screen and (max-width: 411px) {
+  input {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    width: 250px;
+    border-radius: 5px;
+  }
+
+  body {
+    font-size: 0.8rem;
   }
 
   .font-size-10 {
