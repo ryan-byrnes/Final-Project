@@ -57,7 +57,7 @@ export default class Analytics extends React.Component {
     if (this.state.failed) {
       return (
         <div className="row justify-content-center">
-          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+          <p className="font-size-medium color-red font-style-italic">Network Error! Please check your internet connection.</p>
         </div>
       );
     }
@@ -86,7 +86,7 @@ export default class Analytics extends React.Component {
         </div>
         <div className="row justify-content-center margin-top-30">
           <form onSubmit={this.getGraphData}>
-            <select className="font-size-16 graph-input" onChange={this.getExerciseId} name="prs">
+            <select className="font-size-small graph-input" onChange={this.getExerciseId} name="prs">
               <option className="font-style-italic" value="">Choose an Exercise</option>
               {this.state.exercises.map(exercise => {
                 return (

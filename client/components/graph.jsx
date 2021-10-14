@@ -40,12 +40,12 @@ export default class PrGraph extends React.Component {
     } else if (this.state.showGraph) {
       return (
       <div>
-        <p className="font-size-20 color-gray font-style-italic">No Personal Records recorded for this exercise</p>
+        <p className="font-size-medium color-gray font-style-italic">No Personal Records recorded for this exercise</p>
       </div>
       );
     } else {
       return (
-        <p className="font-size-20 color-gray font-style-italic">Select an Exercise to Begin</p>
+        <p className="font-size-medium color-gray font-style-italic">Select an Exercise to Begin</p>
       );
     }
   }

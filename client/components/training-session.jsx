@@ -46,7 +46,7 @@ export default class TrainingSession extends React.Component {
     if (this.state.failed) {
       return (
         <div className="row justify-content-center">
-          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+          <p className="font-size-medium color-red font-style-italic">Network Error! Please check your internet connection.</p>
         </div>
       );
     }
@@ -71,7 +71,7 @@ export default class TrainingSession extends React.Component {
     if (this.state.trainingSession.length < 1) {
       return (
         <div className="row justify-content-center">
-          <p className="font-size-20 color-gray font-style-italic">No Training Session Recorded</p>
+          <p className="font-size-medium color-gray font-style-italic">No Training Session Recorded</p>
         </div>
       );
     } else {
@@ -80,18 +80,18 @@ export default class TrainingSession extends React.Component {
         session.map((exercise, index) => {
           return (
             <div className="row width-80 justify-content-center align-items-start border-bottom-lightgray training-log padding-top-10" key={exercise.exerciseId}>
-              <div className="flex-basis-40 text-align-center">
-                <h4 className="margin-top-0 font-weight-bold font-size-10">{index + 1}. {exercise.exercise}</h4>
+              <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 text-align-center">
+                <h4 className="margin-top-0 font-weight-bold media-list-font-size">{index + 1}. {exercise.exercise}</h4>
               </div>
-              <div className="flex-basis-40">
+              <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75">
                 {exercise.sets.map((set, index) => {
                   return (
                     <div className="row width-100 justify-content-center" key={index}>
-                      <div className="flex-basis-40">
-                        <h5 className="margin-top-0 font-size-10">{set.reps} reps</h5>
+                      <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75">
+                        <h5 className="margin-top-0 media-list-font-size">{set.reps} reps</h5>
                       </div>
-                      <div className="flex-basis-40">
-                        <h5 className="margin-top-0 font-size-10">{set.weight} lbs.</h5>
+                      <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75">
+                        <h5 className="margin-top-0 media-list-font-size">{set.weight} lbs.</h5>
                       </div>
                     </div>
                   );
