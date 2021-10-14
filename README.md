@@ -39,7 +39,6 @@ https://user-images.githubusercontent.com/20606439/137221266-33dd2190-5915-4372-
 ## Requirements
 - Node.js 10 or higher
 - NPM 6 or higher
-- MongoDB 4 or higher
 
 ## Getting Started
 
