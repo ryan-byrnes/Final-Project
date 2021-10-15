@@ -110,7 +110,7 @@ export default class TrainingLog extends React.Component {
     if (this.state.failed) {
       return (
         <div className="row justify-content-center">
-          <p className="font-size-20 color-red font-style-italic">Network Error! Please check your internet connection.</p>
+          <p className="font-size-medium color-red font-style-italic">Network Error! Please check your internet connection.</p>
         </div>
       );
     }
