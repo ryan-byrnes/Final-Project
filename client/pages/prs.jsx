@@ -81,7 +81,7 @@ export default class PrPage extends React.Component {
     }
     return (
     <div className="container row align-items-center flex-direction-column width-100">
-      <div className="pr-width">
+      <div className="width-40 pr-width">
         <div className="row justify-content-center">
             <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
         </div>
@@ -237,11 +237,11 @@ class AddPrModal extends React.Component {
                     <h3 className="margin-bottom-5">{this.state.nextExercise}</h3>
                   </div>
                   <div className="row justify-content-center">
-                    <div className="column-half margin-right-10">
+                    <div className="column-half flex-basis-70 margin-right-10">
                       <h5>Number of Reps (RM)</h5>
                       <input className="input-width" type="text" name="reps" onChange={this.handleChange}></input>
                     </div>
-                    <div className="column-half">
+                    <div className="column-half flex-basis-70">
                       <h5>Weight (lbs)</h5>
                       <input className="input-width" type="text" name="weight" onChange={this.handleChange}></input>
                     </div>
@@ -282,13 +282,13 @@ function Pr(props) {
   const { exercise, reps, weight } = props.pr;
   return (
     <div className="row justify-content-center container-list width-100 border-bottom-lightgray">
-      <div className="row justify-content-start flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 margin-left-rem">
+      <div className="row justify-content-start flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 margin-left-4rem">
         <h3 className="font-weight-bold media-list-font-size">{ exercise }</h3>
       </div>
       <div className="row justify-content-end flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75">
         <h3 className="font-weight-bold media-list-font-size">{ reps } RM:</h3>
       </div>
-      <div className="row justify-content-end flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 margin-right-rem">
+      <div className="row justify-content-end flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 margin-right-4rem">
         <h3 className="media-list-font-size">{weight} lbs</h3>
       </div>
     </div>

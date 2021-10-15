@@ -76,11 +76,11 @@ a:hover {
   margin-left: 1.5rem;
 }
 
-.margin-left-rem {
+.margin-left-4rem {
   margin-left: 4rem;
 }
 
-.margin-right-rem {
+.margin-right-4rem {
   margin-right: 4rem;
 }
 
@@ -201,11 +201,7 @@ a:hover {
   width: 100%;
 }
 
-.width-80 {
-  width: 40%;
-}
-
-.pr-width {
+.width-40 {
   width: 40%;
 }
 
@@ -481,7 +477,7 @@ a:hover {
     flex-basis: 65%;
   }
 
-  .width-80 {
+  .width-55 {
     width: 55%;
   }
 }
@@ -519,7 +515,7 @@ a:hover {
     flex-basis: 75%;
   }
 
-  .width-80 {
+  .width-75 {
     width: 75%;
   }
 }
@@ -544,12 +540,8 @@ a:hover {
     font-size: 0.57rem;
   }
 
-  .column-half {
+  .flex-basis-70 {
     flex-basis: 70%;
-  }
-
-  .width-80 {
-    width: 75%;
   }
 
   .graph-button {
@@ -573,7 +565,7 @@ a:hover {
     font-size: 15px;
   }
 
-  .button-height-37 {
+  .button-height-30 {
     display: inline-block;
     height: 30px;
   }
@@ -613,10 +605,6 @@ a:hover {
     flex-basis: 70%;
   }
 
-  .width-80 {
-    width: 75%;
-  }
-
   .graph-button {
     width: 28%;
     font-weight: 800;
@@ -636,11 +624,6 @@ a:hover {
   .add-pr-button-font {
     font-weight: 800;
     font-size: 15px;
-  }
-
-  .button-height-37 {
-    display: inline-block;
-    height: 30px;
   }
 
   .suggestions {
@@ -670,14 +653,6 @@ a:hover {
     font-size: 0.8rem;
   }
 
-  .column-half {
-    flex-basis: 70%;
-  }
-
-  .width-80 {
-    width: 75%;
-  }
-
   .graph-button {
     width: 28%;
     font-weight: 800;
@@ -697,11 +672,6 @@ a:hover {
   .add-pr-button-font {
     font-weight: 800;
     font-size: 15px;
-  }
-
-  .button-height-37 {
-    display: inline-block;
-    height: 30px;
   }
 
   .suggestions {
