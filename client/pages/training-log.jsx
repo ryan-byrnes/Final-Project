@@ -152,13 +152,13 @@ export default class TrainingLog extends React.Component {
     }
     return (
       <div className="container">
-        <div className="row justify-content-center margin-top-50">
+        <div className="row justify-content-center margin-top-30">
           <Calendar date={this.state.startDate} handleChange={this.handleChange} />
         </div>
-        <div className="row margin-top-10 justify-content-center width-100">
+        <div className="row margin-top-30 justify-content-center width-100">
           <h1 className="border-bottom-black">Training Log</h1>
         </div>
-        <div className="row margin-top-10 flex-direction-column align-items-center width-100">
+        <div className="row margin-top-30 flex-direction-column align-items-center width-100">
           <TrainingSession date={this.state.startDate} />
         </div>
         <div className="row justify-content-center margin-top-50">
