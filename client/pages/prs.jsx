@@ -229,12 +229,12 @@ class AddPrModal extends React.Component {
           </div>
           <div className="modal">
             <div className="modal-content position-relative overflow-scroll">
-              <h1>Add PR</h1>
+              <h1 className="margin-top-10 margin-bottom-10">Add PR</h1>
               <Search exerciseSearch={this.exerciseSearch} selectedExercise={this.exerciseSelected} state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
               <div className="row">
                 <form onSubmit={this.submitPR}>
                   <div className="row">
-                    <h3 className="margin-bottom-5">{this.state.nextExercise}</h3>
+                    <h3 className="margin-bottom-10 margin-top-20">{this.state.nextExercise}</h3>
                   </div>
                   <div className="row justify-content-center">
                     <div className="column-half flex-basis-70 margin-right-10">
@@ -246,7 +246,7 @@ class AddPrModal extends React.Component {
                       <input className="input-width" type="text" name="weight" onChange={this.handleChange}></input>
                     </div>
                   </div>
-                  <div className="margin-top-10">
+                  <div className="margin-top-20">
                     <button className="button-width button-height border-radius-5 button-color-primary add-pr-button-font" type="submit">Submit PR</button>
                   </div>
                 </form>
@@ -266,7 +266,7 @@ class AddPrModal extends React.Component {
         </div>
         <div className="modal">
           <div className="modal-content position-relative overflow-scroll">
-            <h1>Add PR</h1>
+            <h1 className="margin-top-10 margin-bottom-10">Add PR</h1>
             <Search exerciseSearch={this.exerciseSearch} selectedExercise={this.exerciseSelected} state={this.state} onType={this.onType} click={this.onClick} addExercise={this.addExercise} />
             <div>
               <a className="color-red position-absolute close-size" onClick={this.handleClose}><i className="fas fa-times"></i></a>
