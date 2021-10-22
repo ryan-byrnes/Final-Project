@@ -87,7 +87,7 @@ export default class PrPage extends React.Component {
         </div>
         {
           this.state.prs.map(pr => (
-            <div className="prs" key={pr.prId}>
+            <div className="prs grow" key={pr.prId}>
               <Pr pr={pr}/>
             </div>
           ))
