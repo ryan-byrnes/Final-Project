@@ -69,7 +69,7 @@ export default class PrPage extends React.Component {
     if (!this.state.prs.length) {
       return (
         <div>
-          <div className="row justify-content-center">
+          <div className="row justify-content-center margin-top-30">
             <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
           </div>
           <div className="row justify-content-center margin-top-30">
@@ -82,8 +82,8 @@ export default class PrPage extends React.Component {
     return (
     <div className="container row align-items-center flex-direction-column width-100">
       <div className="width-40 pr-width">
-        <div className="row justify-content-center">
-            <h1 className="font-weight-bold border-bottom-black">Personal Records</h1>
+        <div className="row justify-content-center margin-top-30">
+            <h1 className="font-weight-bold border-bottom-black margin-bottom-30">Personal Records</h1>
         </div>
         {
           this.state.prs.map(pr => (
@@ -281,7 +281,7 @@ class AddPrModal extends React.Component {
 function Pr(props) {
   const { exercise, reps, weight } = props.pr;
   return (
-    <div className="row justify-content-center container-list width-100 border-bottom-lightgray">
+    <div className="row align-items-center justify-content-center container-list width-100 border-bottom-lightgray">
       <div className="row justify-content-start flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 margin-left-4rem">
         <h3 className="font-weight-bold media-list-font-size">{ exercise }</h3>
       </div>

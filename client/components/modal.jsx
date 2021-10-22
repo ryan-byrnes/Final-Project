@@ -78,12 +78,12 @@ export default class TrainingModal extends React.Component {
       return (
           <div className="modal">
             <div className="modal-content position-relative overflow-scroll">
-              <h1>Add Exercise</h1>
+              <h1 className="margin-top-10 margin-bottom-10">Add Exercise</h1>
               <Search selectedExercise={this.exerciseSelected} addExercise={this.addExercise} />
               <div className="row">
                 <form onSubmit={this.props.submitExercise}>
                   <div className="row">
-                    <h3 className="margin-bottom-5">{this.state.nextExercise}</h3>
+                    <h3 className="margin-bottom-10 margin-top-20">{this.state.nextExercise}</h3>
                   </div>
                   {this.props.sets.map((element, index) => (
                   <div className="row justify-content-center align-items-flex-end" key={index}>
@@ -102,7 +102,9 @@ export default class TrainingModal extends React.Component {
                                 <button className="remove-set-button font-weight-bold" type="button" onClick={() => this.props.removeSet(index)}>Remove Set</button>
                               </div>
                             }
-                            <button className="add-set-button font-weight-bold" type="button" onClick={() => this.props.addSet({ reps: '', weight: '' })}>Add Set</button>
+                            <div>
+                              <button className="add-set-button font-weight-bold" type="button" onClick={() => this.props.addSet({ reps: '', weight: '' })}>Add Set</button>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -123,7 +125,7 @@ export default class TrainingModal extends React.Component {
     return (
         <div className="modal">
           <div className="modal-content position-relative">
-            <h1>Add Exercise</h1>
+            <h1 className="margin-top-10 margin-bottom-10">Add Exercise</h1>
           <Search selectedExercise={this.exerciseSelected} addExercise={this.addExercise} />
             <div>
             <a className="color-red position-absolute close-size" onClick={this.props.handleClose}><i className="fas fa-times"></i></a>
