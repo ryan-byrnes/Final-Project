@@ -40,6 +40,16 @@ a:hover {
   height: 3rem;
 }
 
+.grow {
+  transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: 10px 5px 5px #227cff;
+}
+
 .date-input {
   width: 150px;
 }
