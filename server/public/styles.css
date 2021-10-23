@@ -584,14 +584,14 @@ a:hover {
   }
 
   .graph-button {
-    width: 28%;
+    width: 35%;
     font-weight: 800;
     font-size: 0.4rem;
     text-align: center;
   }
 
   .graph-input {
-    width: 72%;
+    width: 65%;
     padding-left: 2px;
     display: inline-block;
   }
