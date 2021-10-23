@@ -85,7 +85,7 @@ export default class Analytics extends React.Component {
           <h1 className="font-weight-bold border-bottom-black">PR Tracker</h1>
         </div>
         <div className="row justify-content-center margin-top-30">
-          <form onSubmit={this.getGraphData}>
+          <form className="width-60" onSubmit={this.getGraphData}>
             <select className="font-size-small graph-input" onChange={this.getExerciseId} name="prs">
               <option className="font-style-italic" value="">Choose an Exercise</option>
               {this.state.exercises.map(exercise => {

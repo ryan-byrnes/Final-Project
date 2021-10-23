@@ -567,6 +567,10 @@ a:hover {
     font-size: 0.8rem;
   }
 
+  .width-60 {
+    width: 60%;
+  }
+
   .media-list-font-size {
     font-size: 0.6rem;
   }
