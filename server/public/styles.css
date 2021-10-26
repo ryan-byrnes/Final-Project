@@ -284,6 +284,10 @@ a:hover {
   border-bottom: 1px solid lightgray;
 }
 
+.border-bottom-gray {
+  border-bottom: 1px solid gray;
+}
+
 .border-bottom-black {
   border-bottom: 3px solid black;
 }
