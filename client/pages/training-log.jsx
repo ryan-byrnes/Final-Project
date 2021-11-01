@@ -2,6 +2,7 @@ import React from 'react';
 import TrainingModal from '../components/modal';
 import Calendar from '../components/date-picker';
 import TrainingSession from '../components/training-session';
+import ExerciseInformation from '../components/exercise-information';
 
 export default class TrainingLog extends React.Component {
   constructor(props) {
@@ -13,6 +14,9 @@ export default class TrainingLog extends React.Component {
       trainingSession: [],
       sets: [{ reps: '', weight: '' }],
       exerciseId: 1,
+      exercises: [],
+      exercise: 1,
+      infoModal: false,
       isLoading: false,
       failed: false
     };
@@ -24,6 +28,20 @@ export default class TrainingLog extends React.Component {
     this.repsWeightInput = this.repsWeightInput.bind(this);
     this.removeSet = this.removeSet.bind(this);
     this.getExerciseId = this.getExerciseId.bind(this);
+    this.getExerciseInfo = this.getExerciseInfo.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/exercise-list')
+      .then(res => res.json())
+      .then(exercises => this.setState({
+        exercises,
+        isLoading: false
+      }))
+      .catch(err => {
+        this.setState({ isLoading: false, failed: true });
+        console.error(err);
+      });
   }
 
   handleChange(date) {
@@ -41,7 +59,21 @@ export default class TrainingLog extends React.Component {
   handleClose() {
     this.setState({
       isOpen: false,
-      sets: [{ reps: '', weight: '' }]
+      sets: [{ reps: '', weight: '' }],
+      infoModal: false
+    });
+  }
+
+  getExerciseInfo(event) {
+    let exercise;
+    for (let i = 0; i < this.state.exercises.length; i++) {
+      if (this.state.exercises[i].exerciseId === parseInt(event.target.closest('.grow').id)) {
+        exercise = this.state.exercises[i].exercise;
+      }
+    }
+    this.setState({
+      exercise,
+      infoModal: true
     });
   }
 
@@ -150,6 +182,11 @@ export default class TrainingLog extends React.Component {
         </div>
       );
     }
+    if (this.state.infoModal) {
+      return (
+        <ExerciseInformation exercise={this.state.exercise} handleClose={this.handleClose} />
+      );
+    }
     return (
       <div className="container">
         <div className="row justify-content-center margin-top-30">
@@ -162,7 +199,7 @@ export default class TrainingLog extends React.Component {
           <h1 className="font-style-italic border-bottom-black">Training Log</h1>
         </div>
         <div className="row margin-top-30 flex-direction-column align-items-center width-100">
-          <TrainingSession date={this.state.startDate} />
+          <TrainingSession date={this.state.startDate} info={this.getExerciseInfo} />
         </div>
         <div className="row justify-content-center margin-top-50">
           <button className="button-width-150 button-height border-radius-5 button-color-primary add-pr-button-font" onClick={this.handleOpen}>+ Add Exercise</button>
