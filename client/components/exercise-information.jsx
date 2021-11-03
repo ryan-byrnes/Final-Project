@@ -20,7 +20,7 @@ export default class ExerciseInformation extends React.Component {
           <iframe className="margin-top-10 margin-bottom-10 border-radius-5" width="455" height="350" srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=${this.state.exerciseVideo}/?autoplay=1&start=4><img src=https://img.youtube.com/vi/${videoImage}/hqdefault.jpg alt='${this.state.exerciseName}'><span>▶</span></a>`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
           <a className="color-red position-absolute close-size" onClick={this.props.handleClose}><i className="fas fa-times"></i></a>
           <div className="row">
-            <h4>{this.state.exerciseDescription}</h4>
+            {/* <h4>{this.state.exerciseDescription}</h4> */}
           </div>
         </div>
       </div>
