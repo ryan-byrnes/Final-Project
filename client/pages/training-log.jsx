@@ -16,6 +16,8 @@ export default class TrainingLog extends React.Component {
       exerciseId: 1,
       exercises: [],
       exercise: 1,
+      video: '',
+      description: '',
       infoModal: false,
       isLoading: false,
       failed: false
@@ -66,13 +68,19 @@ export default class TrainingLog extends React.Component {
 
   getExerciseInfo(event) {
     let exercise;
+    let video;
+    let description;
     for (let i = 0; i < this.state.exercises.length; i++) {
       if (this.state.exercises[i].exerciseId === parseInt(event.target.closest('.grow').id)) {
         exercise = this.state.exercises[i].exercise;
+        video = this.state.exercises[i].videoPath;
+        description = this.state.exercises[i].description;
       }
     }
     this.setState({
       exercise,
+      video,
+      description,
       infoModal: true
     });
   }
@@ -184,7 +192,7 @@ export default class TrainingLog extends React.Component {
     }
     if (this.state.infoModal) {
       return (
-        <ExerciseInformation exercise={this.state.exercise} handleClose={this.handleClose} />
+        <ExerciseInformation exercise={this.state.exercise} video={this.state.video} description={this.state.description} handleClose={this.handleClose} />
       );
     }
     return (

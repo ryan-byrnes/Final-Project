@@ -17,9 +17,6 @@ insert into "exerciseList" ("exercise")
 values ('Snatch');
 
 insert into "exerciseList" ("exercise")
-values ('Power Clean');
-
-insert into "exerciseList" ("exercise")
 values ('Bent Row');
 
 insert into "exerciseList" ("exercise")
@@ -57,6 +54,3 @@ values ('Biceps Curl');
 
 insert into "users" ("name")
 values ('Ryan');
-
-insert into "prs" ("weight", "reps", "userId", "exerciseId")
-values ('250', '1', '1', '1');

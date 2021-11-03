@@ -24,7 +24,9 @@ app.use(staticMiddleware);
 app.get('/api/exercise-list', (req, res, next) => {
   const sql = `
   select "exercise",
-         "exerciseId"
+         "exerciseId",
+         "description",
+         "videoPath"
   from "exerciseList"
   `;
 
