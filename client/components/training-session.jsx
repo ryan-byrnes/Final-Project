@@ -79,8 +79,8 @@ export default class TrainingSession extends React.Component {
       return (
         session.map((exercise, index) => {
           return (
-            <div className="row width-40 width-55 width-75 justify-content-center align-items-start border-bottom-lightgray grow training-log padding-top-10 padding-bottom-10" key={exercise.exerciseId}>
-              <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 text-align-center">
+            <div className="row width-40 width-55 width-75 justify-content-center align-items-start border-bottom-lightgray grow training-log padding-top-10 padding-bottom-10" id={exercise.exerciseId} key={exercise.exerciseId} onClick={this.props.info}>
+              <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75 padding-left-50">
                 <h4 className="margin-top-0 font-weight-bold media-list-font-size">{index + 1}. {exercise.exercise}</h4>
               </div>
               <div className="flex-basis-40 flex-basis-65 flex-basis-60 flex-basis-75">

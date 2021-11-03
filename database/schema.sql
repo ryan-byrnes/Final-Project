@@ -49,7 +49,7 @@ CREATE TABLE "public"."trainingLog" (
 CREATE TABLE "public"."exerciseList" (
 	"exerciseId" serial NOT NULL,
 	"exercise" TEXT NOT NULL UNIQUE,
-	"description" TEXT,
+	"description" json,
 	"videoPath" TEXT,
 	CONSTRAINT "exerciseList_pk" PRIMARY KEY ("exerciseId")
 ) WITH (
